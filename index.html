@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#25093f">
+<script>document.documentElement.classList.add("js");try{var _t=localStorage.getItem("mlTheme");if(_t)document.documentElement.setAttribute("data-theme",_t)}catch(e){}</script>
+<link rel="icon" type="image/png" href="images/logo.png">
+<title>ML Donation Community — Every Child Deserves a Better Life</title>
+<meta name="description" content="ML Donation Community supports orphans and underprivileged children with healthcare, education, nutrition and a safe home.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600&family=Cinzel:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#4a1d8f;
+  --purple-deep:#25093f;
+  --purple-mid:#37146b;
+  --gold:#c9a227;
+  --gold-light:#e8c968;
+  --gold-soft:#f6ecce;
+  --white:#ffffff;
+  --lavender:#f6f2fb;
+  --ink:#1f1233;
+  --muted:#5e5174;
+  --line:#e5dcf2;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  --gold-grad:linear-gradient(135deg,#a8821a 0%,#e8c968 45%,#c9a227 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--white);line-height:1.65;font-size:17px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;line-height:1.12;color:var(--purple-deep)}
+h1{font-size:clamp(2.4rem,5.2vw,4.3rem)}
+h2{font-size:clamp(2rem,3.8vw,3.1rem)}
+h3{font-size:1.6rem}
+p{max-width:64ch}
+.wrap{width:min(1180px,92%);margin:0 auto}
+.section{padding:5.5rem 0}
+.section.tint{background:var(--lavender)}
+.section.dark{background:var(--purple-deep);color:#e9e1f6}
+.section.dark h2,.section.dark h3{color:var(--white)}
+.center{text-align:center}
+.center p{margin-inline:auto}
+.lead{font-size:1.15rem;color:var(--muted);margin-top:1rem}
+.dark .lead{color:#cbbde3}
+.rule{width:64px;height:3px;background:var(--gold-grad);margin:1.2rem 0}
+.center .rule{margin-inline:auto}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.95rem 1.9rem;border-radius:2px;font-weight:600;font-size:.95rem;letter-spacing:.04em;border:2px solid transparent;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
+.btn-gold{background:var(--gold-grad);color:var(--purple-deep);box-shadow:0 6px 20px rgba(201,162,39,.35)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(201,162,39,.5)}
+.btn-outline{border-color:var(--gold);color:var(--gold-light)}
+.btn-outline:hover{background:var(--gold);color:var(--purple-deep)}
+.btn-purple{background:var(--purple);color:var(--white)}
+.btn-purple:hover{background:var(--purple-deep)}
+.btn-line{border-color:var(--link);color:var(--link)}
+.btn-line:hover{background:var(--purple);color:#fff}
+
+/* Preloader */
+#preloader{position:fixed;inset:0;z-index:9999;background:radial-gradient(circle at 50% 40%,#4a1d8f 0%,#25093f 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:2rem;transition:opacity .8s ease,visibility .8s}
+#preloader.hide{opacity:0;visibility:hidden}
+#preloader .p-logo{width:min(230px,55vw);animation:float 3s ease-in-out infinite;filter:drop-shadow(0 12px 30px rgba(0,0,0,.4))}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+#preloader .p-msg{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.3rem);margin-top:1.8rem;min-height:2.6em;color:var(--gold-light);font-style:italic;transition:opacity .5s}
+#preloader .p-sub{font-size:.9rem;letter-spacing:.2em;color:#cbbde3;margin-top:.4rem}
+.p-bar{width:min(360px,70vw);height:4px;background:rgba(255,255,255,.18);border-radius:4px;margin-top:2rem;overflow:hidden}
+.p-bar span{display:block;height:100%;width:0;background:var(--gold-grad);animation:fill 7s linear forwards}
+@keyframes fill{to{width:100%}}
+.p-hearts{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.p-hearts i{position:absolute;bottom:-40px;color:var(--gold);opacity:0;font-style:normal;animation:rise 7s linear infinite}
+@keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:.7}100%{transform:translateY(-110vh) scale(1.2);opacity:0}}
+
+/* Top bar & header */
+.topbar{background:var(--purple-deep);color:#d9ccee;font-size:.85rem;padding:.5rem 0}
+.topbar .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.topbar a{color:var(--gold-light)}
+header.site{position:sticky;top:0;z-index:500;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);box-shadow:0 2px 18px rgba(37,9,63,.06)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;height:84px;gap:1rem}
+.brand{display:flex;align-items:center;gap:.8rem}
+.brand img{height:66px;width:auto}
+.brand b{font-family:var(--serif);font-size:1.45rem;line-height:1.05;color:var(--purple-deep);font-weight:700}
+.brand small{display:block;font-family:var(--sans);font-size:.7rem;letter-spacing:.18em;color:var(--gold);font-weight:600;margin-top:2px}
+nav.main ul{list-style:none;display:flex;align-items:center;gap:1.7rem}
+nav.main a.nl{font-weight:500;font-size:.95rem;color:var(--ink);padding:.4rem 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+nav.main a.nl:hover,nav.main a.nl.active{color:var(--link);border-color:var(--gold)}
+.has-sub{position:relative}
+.sub{position:absolute;top:100%;left:-1rem;background:#fff;min-width:250px;padding:.7rem 0;border-top:3px solid var(--gold);box-shadow:0 18px 40px rgba(37,9,63,.18);opacity:0;visibility:hidden;transform:translateY(8px);transition:all .2s;list-style:none;display:block !important}
+.has-sub:hover .sub,.has-sub:focus-within .sub{opacity:1;visibility:visible;transform:none}
+.sub a{display:block;padding:.55rem 1.3rem;font-size:.93rem}
+.sub a:hover{background:var(--lavender);color:var(--link)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;position:relative}
+.burger span,.burger span::before,.burger span::after{content:"";position:absolute;left:10px;right:10px;height:2px;background:var(--purple-deep);transition:.25s}
+.burger span{top:21px}.burger span::before{top:-7px;left:0;right:0}.burger span::after{top:7px;left:0;right:0}
+.burger.open span{background:transparent}
+.burger.open span::before{top:0;transform:rotate(45deg)}
+.burger.open span::after{top:0;transform:rotate(-45deg)}
+
+/* Hero slider */
+.hero{position:relative;overflow:hidden;background:var(--purple-deep)}
+.slides{display:flex;transition:transform .9s cubic-bezier(.65,0,.25,1)}
+.slide{min-width:100%;display:grid;grid-template-columns:1.05fr .95fr;min-height:min(86vh,760px)}
+.slide .txt{background:radial-gradient(circle at 10% 10%,#4a1d8f 0,#25093f 75%);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:4rem 4vw 4rem max(4vw,calc((100vw - 1180px)/2));position:relative}
+.slide .txt::after{content:"";position:absolute;right:-1px;top:0;bottom:0;width:90px;background:linear-gradient(to right,transparent,rgba(201,162,39,.0));}
+.slide h1{color:#fff}
+.slide .kicker{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--gold-light);margin-bottom:1rem}
+.slide p{color:#ddd2ee;font-size:1.15rem;margin:1.4rem 0 2rem}
+.slide .ctas{display:flex;gap:1rem;flex-wrap:wrap}
+.slide .pic{position:relative;overflow:hidden;border-left:6px solid var(--gold)}
+.slide .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(37,9,63,.35),transparent 30%)}
+.hero-ctrl{position:absolute;left:max(4vw,calc((100vw - 1180px)/2));bottom:1.8rem;display:flex;gap:.7rem;align-items:center;z-index:5}
+.dot{width:38px;height:4px;border:0;background:rgba(255,255,255,.35);transition:.3s}
+.dot.on{background:var(--gold-light);width:58px}
+.arrow{position:absolute;top:50%;z-index:5;width:50px;height:50px;border-radius:50%;border:1px solid var(--gold);background:rgba(37,9,63,.55);color:var(--gold-light);font-size:1.3rem;transform:translateY(-50%);transition:.2s}
+.arrow:hover{background:var(--gold);color:var(--purple-deep)}
+.arrow.prev{right:calc(50% + 10px)}
+.arrow.next{right:1.2rem}
+
+/* Quick give strip */
+.give-strip{background:var(--gold-grad);padding:1.3rem 0}
+.give-strip .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap}
+.give-strip strong{font-family:var(--serif);font-size:1.6rem;color:var(--purple-deep)}
+.chips{display:flex;gap:.5rem;flex-wrap:wrap}
+.chip{padding:.55rem 1.1rem;background:var(--purple-deep);color:var(--gold-light);border:0;border-radius:2px;font-weight:600;transition:.2s}
+.chip:hover{background:#fff;color:var(--purple-deep)}
+
+/* Layout bits */
+.grid{display:grid;gap:1.8rem}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.split img.frame{border:1px solid var(--gold);padding:10px;background:#fff;box-shadow:0 24px 50px rgba(37,9,63,.2);aspect-ratio:4/4.6;object-fit:cover;width:100%}
+.split p+p{margin-top:1rem}
+.card{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);padding:2.2rem 1.8rem;transition:box-shadow .25s,transform .25s;display:flex;flex-direction:column;align-items:flex-start;gap:.8rem}
+.card:hover{box-shadow:0 18px 40px rgba(74,29,143,.14);transform:translateY(-4px)}
+.card p{color:var(--muted);font-size:1rem}
+.card .more{margin-top:auto;font-weight:600;color:var(--link);border-bottom:2px solid var(--gold)}
+.ico{width:58px;height:58px;border-radius:50%;background:var(--purple);display:grid;place-items:center;flex:none}
+.ico svg{width:28px;height:28px;stroke:var(--gold-light);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.dark .card{background:rgba(255,255,255,.05);border-color:rgba(201,162,39,.4)}
+.dark .card h3{color:#fff}.dark .card p{color:#cbbde3}
+
+.quote{font-family:var(--serif);font-size:clamp(1.7rem,3.2vw,2.6rem);font-style:italic;line-height:1.3;color:var(--gold-light);max-width:26ch;margin:0 auto}
+
+/* Impact ladder */
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.rung{border:1px solid rgba(201,162,39,.5);padding:1.6rem 1.3rem;background:rgba(255,255,255,.04)}
+.rung b{font-family:var(--serif);font-size:2.4rem;color:var(--gold-light);display:block;line-height:1}
+.rung span{display:block;margin-top:.6rem;color:#d9ccee;font-size:.98rem}
+
+/* Page banner */
+.banner{background:linear-gradient(120deg,rgba(37,9,63,.96),rgba(74,29,143,.9)),var(--purple-deep);color:#fff;padding:5.5rem 0 4.5rem;position:relative;overflow:hidden;border-bottom:4px solid var(--gold)}
+.banner h1{color:#fff;font-size:clamp(2.2rem,4.6vw,3.8rem)}
+.banner p{color:#ddd2ee;font-size:1.2rem;margin-top:1rem}
+.crumbs{font-size:.9rem;color:var(--gold-light);margin-bottom:1rem}
+.crumbs a:hover{text-decoration:underline}
+.banner::after{content:"";position:absolute;right:-80px;top:-80px;width:340px;height:340px;border-radius:50%;border:2px solid rgba(201,162,39,.35);box-shadow:0 0 0 30px rgba(201,162,39,.08)}
+
+/* Lists */
+.checks{list-style:none;display:grid;gap:.8rem;margin-top:1.2rem}
+.checks li{padding-left:2rem;position:relative}
+.checks li::before{content:"";position:absolute;left:0;top:.45rem;width:14px;height:14px;background:var(--gold-grad);transform:rotate(45deg)}
+.sidebox{background:var(--purple-deep);color:#e9e1f6;padding:2.2rem;border-top:4px solid var(--gold);position:sticky;top:110px}
+.sidebox h3{color:#fff;margin-bottom:.6rem}
+.sidebox .chips{margin:1.2rem 0}
+.sidebox .chip{background:rgba(255,255,255,.1);color:var(--gold-light);border:1px solid rgba(201,162,39,.5)}
+.sidebox .chip:hover{background:var(--gold);color:var(--purple-deep)}
+.prog-layout{display:grid;grid-template-columns:1.6fr 1fr;gap:3.5rem;align-items:start}
+.prog-layout h2{margin-bottom:.4rem}
+.prog-layout p+p{margin-top:1rem}
+
+/* Donate */
+.donate-box{background:#fff;border:1px solid var(--line);border-top:5px solid var(--gold);box-shadow:0 24px 60px rgba(37,9,63,.13);padding:2.6rem}
+.freq{display:inline-flex;border:1px solid var(--purple);margin-bottom:1.6rem}
+.freq button{padding:.7rem 1.6rem;border:0;background:#fff;color:var(--link);font-weight:600}
+.freq button.on{background:var(--purple);color:#fff}
+.amounts{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.amt{padding:1.1rem .5rem;background:#fff;border:2px solid var(--line);font-family:var(--serif);font-size:1.7rem;font-weight:700;color:var(--purple-deep);transition:.2s}
+.amt:hover{border-color:var(--gold)}
+.amt.on{background:var(--purple);border-color:var(--link);color:var(--gold-light);box-shadow:0 8px 20px rgba(74,29,143,.3)}
+.field{display:flex;flex-direction:column;gap:.35rem;margin-top:1.1rem}
+.field label{font-weight:600;font-size:.9rem;color:var(--purple-deep)}
+.field input,.field select,.field textarea{padding:.85rem 1rem;border:1px solid #cfc3e3;font:inherit;background:#fff;color:var(--ink);border-radius:2px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--link);box-shadow:0 0 0 3px rgba(201,162,39,.35)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.impact-line{margin-top:1.3rem;padding:1rem 1.2rem;background:var(--gold-soft);border-left:4px solid var(--gold);color:var(--purple-deep);font-weight:500}
+.secure{font-size:.85rem;color:var(--muted);margin-top:1rem;text-align:center}
+.donate-wrap{display:grid;grid-template-columns:1.35fr 1fr;gap:3rem;align-items:start}
+.err{color:#a3162a;font-size:.88rem;min-height:1.2em;margin-top:.5rem}
+
+/* Footer */
+footer{background:var(--purple-deep);color:#cbbde3;border-top:4px solid var(--gold);padding:4.5rem 0 0}
+.foot{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:3rem}
+footer h4{color:var(--gold-light);font-size:1.3rem;margin-bottom:1rem}
+footer ul{list-style:none;display:grid;gap:.5rem}
+footer a:hover{color:var(--gold-light)}
+footer .flogo{width:130px;margin-bottom:1rem}
+.copy{margin-top:3rem;border-top:1px solid rgba(201,162,39,.3);padding:1.4rem 0;font-size:.88rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(37,9,63,.82);display:none;place-items:center;z-index:2000;padding:1rem}
+.modal.show{display:grid}
+.modal .box{background:#fff;max-width:520px;width:100%;padding:2.6rem;text-align:center;border-top:6px solid var(--gold)}
+.modal .box img{width:110px;margin:0 auto 1rem}
+.modal .box p{margin:1rem auto 1.6rem}
+
+.page{display:none}
+.page.active{display:block;animation:pg .5s ease}
+@keyframes pg{from{opacity:0}to{opacity:1}}
+.reveal{animation:none}
+
+@media(max-width:980px){
+  .g3,.g4,.ladder{grid-template-columns:repeat(2,1fr)}
+  .split,.prog-layout,.donate-wrap{grid-template-columns:1fr;gap:2.5rem}
+  .foot{grid-template-columns:1fr 1fr}
+  .sidebox{position:static}
+  .burger{display:block}
+  nav.main{position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);background:#fff;padding:6rem 1.8rem 2rem;transform:translateX(100%);transition:transform .35s;box-shadow:-20px 0 50px rgba(0,0,0,.25);overflow-y:auto;z-index:600}
+  nav.main.open{transform:none}
+  nav.main ul{flex-direction:column;align-items:stretch;gap:.3rem}
+  nav.main a.nl{display:block;padding:.8rem 0;border-bottom:1px solid var(--line)}
+  .sub{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border-top:0;padding:0 0 0 .8rem;min-width:0}
+  .burger{z-index:700}
+  .slide{grid-template-columns:1fr;min-height:0}
+  .slide .pic{order:-1;height:380px;border-left:0;border-bottom:5px solid var(--gold)}
+  .slide .txt{padding:2.4rem 6vw 5rem}
+  .arrow.prev{right:4.4rem}.arrow.next{right:1rem}
+  .arrow{top:330px;width:42px;height:42px}
+  .hero-ctrl{left:6vw}
+}
+@media(max-width:620px){
+  body{font-size:16px}
+  .section{padding:3.8rem 0}
+  .g2,.g3,.g4,.ladder,.row2,.foot{grid-template-columns:1fr}
+  .amounts{grid-template-columns:repeat(2,1fr)}
+  .brand b{font-size:1.15rem}.brand img{height:54px}
+  header.site .wrap{height:74px}
+  .donate-box{padding:1.6rem}
+  .topbar .wrap{justify-content:center;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+  .p-bar span{animation:fill 7s linear forwards !important;animation-duration:7s !important}
+}
+
+/* ===== LUXURY + FLUID RESPONSIVE LAYER ===== */
+:root{--w:1240px;--link:#4a1d8f}
+@media(min-width:1700px){:root{--w:1400px}}
+html{font-size:clamp(15px,.35vw + 13.6px,19px);-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden}
+body{font-size:1rem;overflow-x:hidden;background:#fff}
+.wrap{width:min(var(--w),92%)}
+.grid>*,.split>*,.prog-layout>*,.donate-wrap>*{min-width:0}
+h1,h2,h3{overflow-wrap:anywhere;text-wrap:balance}
+p{text-wrap:pretty}
+
+/* Gold hairline & ornament */
+.rule{width:150px;height:14px;position:relative;background:linear-gradient(#c9a227,#c9a227) left center/56px 1px no-repeat,linear-gradient(#c9a227,#c9a227) right center/56px 1px no-repeat;margin:1.4rem 0}
+.rule::after{content:"";position:absolute;left:50%;top:50%;width:9px;height:9px;background:var(--gold-grad);transform:translate(-50%,-50%) rotate(45deg);box-shadow:0 0 0 3px #fff,0 0 0 4px rgba(201,162,39,.6)}
+.dark .rule::after,.banner .rule::after{box-shadow:0 0 0 3px var(--purple-deep),0 0 0 4px rgba(201,162,39,.7)}
+.foil{background:linear-gradient(180deg,#fff0bd 0%,#e8c968 45%,#b8901f 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.banner h1,.quote,.rung b,.tier b{background:linear-gradient(180deg,#fff0bd 0%,#e8c968 48%,#b8901f 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+
+/* Deep patterned surfaces */
+.section.dark,.banner,footer{background-image:radial-gradient(circle at 15% 0%,rgba(201,162,39,.16),transparent 45%),radial-gradient(circle at 100% 100%,rgba(122,60,200,.35),transparent 50%),repeating-linear-gradient(45deg,rgba(201,162,39,.05) 0 1px,transparent 1px 24px);background-color:var(--purple-deep)}
+.section.tint{background:linear-gradient(180deg,#f8f4fd,#f1eafa)}
+
+/* Header */
+#sp{position:fixed;top:0;left:0;height:3px;width:0;background:var(--gold-grad);z-index:1500;transition:width .1s}
+.topbar{border-bottom:1px solid rgba(201,162,39,.45);letter-spacing:.02em}
+header.site{padding-top:env(safe-area-inset-top);border-bottom:1px solid rgba(201,162,39,.55)}
+header.site .wrap{transition:height .3s}
+header.site.sm .wrap{height:68px}
+.brand img{transition:height .3s;filter:drop-shadow(0 3px 6px rgba(37,9,63,.25))}
+header.site.sm .brand img{height:50px}
+.brand b{font-family:'Cinzel',var(--serif);font-size:1.08rem;letter-spacing:.07em;font-weight:700}
+.brand small{font-size:.62rem;letter-spacing:.2em}
+nav.main a.nl{letter-spacing:.03em}
+.btn{position:relative;overflow:hidden;letter-spacing:.09em;border-radius:0;font-size:.88rem;text-transform:none}
+.btn-gold::after{content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .8s}
+.btn-gold:hover::after{left:140%}
+.btn-gold{box-shadow:0 8px 24px rgba(201,162,39,.4),inset 0 1px 0 rgba(255,255,255,.55)}
+
+/* Hero */
+.slide{min-height:min(88vh,820px);min-height:min(88dvh,820px)}
+.slide .txt{padding-left:max(4vw,calc((100vw - var(--w))/2));padding-right:4vw}
+.slide h1{font-size:clamp(2.3rem,4.6vw,4.4rem);letter-spacing:-.005em}
+.slide .kicker{font-size:clamp(1.2rem,1.6vw,1.6rem);display:flex;align-items:center;gap:.9rem}
+.slide .kicker::before{content:"";width:48px;height:1px;background:var(--gold-light)}
+.slide .pic{border-left:0}
+.slide .pic::before{content:"";position:absolute;inset:clamp(10px,1.4vw,22px);border:1px solid rgba(232,201,104,.75);z-index:2;pointer-events:none}
+.slide .pic img{transform:scale(1.1);transition:transform 9s ease-out}
+.slide.on .pic img{transform:scale(1)}
+.slide .txt::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--gold-grad)}
+.arrow{backdrop-filter:blur(4px)}
+
+/* Marquee */
+.marquee{background:var(--purple-deep);overflow:hidden;border-bottom:1px solid rgba(201,162,39,.55);padding:.85rem 0;white-space:nowrap}
+.mq-track{display:inline-flex;animation:mq 45s linear infinite}
+.mq-track span{font-family:var(--serif);font-style:italic;font-size:1.35rem;color:var(--gold-light);padding:0 1.4rem;display:inline-flex;align-items:center;gap:2.8rem}
+.mq-track span::after{content:"";width:8px;height:8px;background:var(--gold);transform:rotate(45deg)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Cards: engraved double border */
+.card{padding:2.4rem 2rem;box-shadow:inset 0 0 0 5px #fff,inset 0 0 0 6px rgba(201,162,39,.32)}
+.card:hover{box-shadow:inset 0 0 0 5px #fff,inset 0 0 0 6px rgba(201,162,39,.7),0 24px 48px rgba(74,29,143,.18)}
+.dark .card{box-shadow:inset 0 0 0 5px transparent,inset 0 0 0 6px rgba(201,162,39,.3)}
+.ico{background:linear-gradient(145deg,#5a24ad,#2d0f57);box-shadow:0 0 0 3px #fff,0 0 0 4px var(--gold)}
+.rung{border-color:rgba(232,201,104,.55);box-shadow:inset 0 0 0 5px transparent,inset 0 0 0 6px rgba(201,162,39,.25)}
+.rung b{font-size:2.7rem}
+.donate-box{box-shadow:inset 0 0 0 6px #fff,inset 0 0 0 7px rgba(201,162,39,.4),0 30px 70px rgba(37,9,63,.16)}
+.sidebox{box-shadow:inset 0 0 0 6px transparent,inset 0 0 0 7px rgba(201,162,39,.35),0 24px 50px rgba(37,9,63,.25)}
+.split img.frame{box-shadow:0 0 0 1px var(--gold),0 0 0 10px #fff,0 0 0 11px rgba(201,162,39,.5),0 30px 60px rgba(37,9,63,.25);border:0;padding:0;margin:11px}
+
+/* Mosaic */
+.mosaic{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(140px,18vw,270px);gap:14px;margin-top:3rem}
+.mosaic figure{position:relative;overflow:hidden;box-shadow:0 0 0 1px var(--gold),0 14px 34px rgba(37,9,63,.18)}
+.mosaic img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+.mosaic figure:hover img{transform:scale(1.06)}
+.mosaic figure::after{content:"";position:absolute;inset:8px;border:1px solid rgba(232,201,104,.7);pointer-events:none}
+.mosaic .m1{grid-column:span 2;grid-row:span 2}
+.mosaic .m4{grid-column:span 2}
+
+/* Patrons circle */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:3.2rem;align-items:stretch}
+.tier{position:relative;border:1px solid rgba(232,201,104,.55);padding:2.8rem 2rem;text-align:center;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.02));display:flex;flex-direction:column;align-items:center;gap:.8rem;box-shadow:inset 0 0 0 6px transparent,inset 0 0 0 7px rgba(201,162,39,.28)}
+.tier.feat{border-color:var(--gold-light);background:linear-gradient(180deg,rgba(201,162,39,.2),rgba(255,255,255,.03));transform:translateY(-14px)}
+.tier.feat::before{content:"Most distinguished";position:absolute;top:-1px;left:50%;transform:translate(-50%,-50%);background:var(--gold-grad);color:var(--purple-deep);font-size:.78rem;font-weight:600;letter-spacing:.1em;padding:.35rem 1rem}
+.tier h3{font-size:1.9rem}
+.tier b{font-family:var(--serif);font-size:3.4rem;line-height:1}
+.tier ul{list-style:none;display:grid;gap:.6rem;margin:.6rem 0 1.4rem;color:#d9ccee;font-size:.98rem}
+.tier ul li::before{content:"\25C6";color:var(--gold);margin-right:.6rem;font-size:.7rem}
+.tier .btn{margin-top:auto}
+.tier .crown{width:44px;height:44px;stroke:var(--gold-light);fill:none;stroke-width:1.5;stroke-linejoin:round}
+
+/* FAQ */
+.faq{max-width:860px;margin:2.5rem auto 0;text-align:left}
+.faq details{border-bottom:1px solid #d9cdea;padding:1.2rem 0}
+.faq summary{cursor:pointer;font-family:var(--serif);font-size:1.45rem;font-weight:600;color:var(--purple-deep);list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--gold);font-size:1.8rem;line-height:1;flex:none}
+.faq details[open] summary::after{content:"\2013"}
+.faq details p{margin-top:.7rem;color:var(--muted)}
+
+/* Back to top */
+#top{position:fixed;right:max(1rem,env(safe-area-inset-right));bottom:max(1rem,env(safe-area-inset-bottom));width:50px;height:50px;border-radius:50%;border:1px solid var(--gold);background:var(--purple-deep);color:var(--gold-light);font-size:1.3rem;z-index:900;opacity:0;visibility:hidden;transform:translateY(12px);transition:.3s;box-shadow:0 10px 24px rgba(37,9,63,.4)}
+#top.show{opacity:1;visibility:visible;transform:none}
+#top:hover{background:var(--gold);color:var(--purple-deep)}
+
+footer{padding-bottom:env(safe-area-inset-bottom)}
+footer .flogo{width:150px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
+
+/* Scroll reveal (removed after animating so hovers still work) */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}
+.js .rv.in{opacity:1;transform:none}
+
+body.navopen::before{content:"";position:fixed;inset:0;background:rgba(37,9,63,.65);z-index:450}
+body.navopen{overflow:hidden}
+
+/* ---- Tablet landscape / small laptops: switch to drawer nav ---- */
+@media(max-width:1240px){
+  header.site{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+  .burger{display:block;z-index:700}
+  nav.main{position:fixed;top:0;right:0;bottom:0;height:100vh;height:100dvh;width:min(360px,88vw);background:#fff;padding:6rem 1.8rem calc(2rem + env(safe-area-inset-bottom));transform:translateX(105%);transition:transform .35s;box-shadow:-20px 0 50px rgba(0,0,0,.3);overflow-y:auto;z-index:600;border-left:3px solid var(--gold)}
+  nav.main.open{transform:none}
+  nav.main ul{flex-direction:column;align-items:stretch;gap:.2rem}
+  nav.main a.nl{display:block;padding:.85rem 0;border-bottom:1px solid var(--line)}
+  nav.main .btn{display:flex;margin-top:1rem}
+  .sub{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border-top:0;padding:0 0 .5rem .8rem;min-width:0}
+  .tiers{grid-template-columns:1fr;max-width:520px;margin-inline:auto}
+  .tier.feat{transform:none;order:-1;margin-top:1rem}
+}
+/* ---- Tablet portrait & below: stacked hero ---- */
+@media(max-width:980px){
+  :root{--picH:clamp(300px,60vw,580px)}
+  .slide{min-height:0}
+  .slide .pic{height:var(--picH)}
+  .slide .txt{padding:2.6rem 6vw 5.2rem}
+  .slide .txt::before{width:100%;height:5px;bottom:auto;right:0}
+  .arrow{top:calc(var(--picH)/2);width:44px;height:44px}
+  .arrow.prev{right:4.6rem}.arrow.next{right:1rem}
+  .mosaic{grid-template-columns:repeat(2,1fr)}
+  .mosaic .m1{grid-column:span 2}
+  .mosaic .m4{grid-column:span 2}
+  .g4{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:621px) and (max-width:980px){
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .slide h1{font-size:clamp(2.4rem,6vw,3.4rem)}
+}
+/* ---- Phones ---- */
+@media(max-width:620px){
+  .topbar{display:none}
+  .brand small{display:none}
+  .brand b{font-size:.95rem}
+  header.site.sm .wrap{height:60px}
+  .card{padding:2rem 1.5rem}
+  #impactList .card{flex-direction:column;align-items:flex-start;gap:.4rem}
+  .mq-track span{font-size:1.15rem}
+  .btn{width:100%}
+  .slide .ctas .btn{width:100%}
+  .chip{flex:1 1 calc(25% - .5rem);text-align:center;padding:.7rem .4rem}
+  .give-strip .wrap{flex-direction:column;align-items:flex-start}
+  .give-strip strong{font-size:1.35rem}
+  .mosaic{gap:8px}
+  .banner{padding:3.6rem 0 3rem}
+  .banner::after{display:none}
+  .faq summary{font-size:1.2rem}
+}
+@media(max-width:360px){.amounts{grid-template-columns:1fr 1fr}.amt{font-size:1.4rem}}
+/* Landscape phones */
+@media(max-height:520px) and (orientation:landscape){
+  #preloader .p-logo{width:90px}
+  #preloader .p-msg{margin-top:.8rem;font-size:1.2rem;min-height:1.6em}
+  .slide .pic{height:60vh}
+}
+@media(prefers-reduced-motion:reduce){.mq-track{animation:none}.js .rv{opacity:1;transform:none}}
+
+
+/* ===== Photo layer ===== */
+.card.pic{padding:0;gap:0;overflow:hidden;align-items:stretch}
+.thumbw{overflow:hidden;width:100%;border-bottom:3px solid var(--gold)}
+.thumb{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform 1.2s ease}
+.card.pic:hover .thumb{transform:scale(1.06)}
+.cb{padding:1.6rem 1.8rem 2rem;display:flex;flex-direction:column;align-items:flex-start;gap:.8rem;flex:1}
+.wideimg{width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:2.2rem;box-shadow:0 0 0 1px var(--gold),0 0 0 8px #fff,0 0 0 9px rgba(201,162,39,.5),0 26px 50px rgba(37,9,63,.22);}
+.banner[data-bgimg],.banner[style]{background-color:var(--purple-deep)}
+.cine{position:relative;padding:clamp(5rem,12vw,9rem) 0;color:#fff;border-block:4px solid var(--gold)}
+.cine h2{color:#fff;max-width:20ch;margin-inline:auto;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.cine .lead{color:#efe6fb}
+.cine .rule::after{box-shadow:0 0 0 3px #2a0d47,0 0 0 4px rgba(201,162,39,.7)}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.strip figure{position:relative;overflow:hidden;box-shadow:0 0 0 1px var(--gold),0 16px 36px rgba(37,9,63,.18)}
+.strip img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform 1.2s}
+.strip figure:hover img{transform:scale(1.05)}
+.strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:2.6rem 1.2rem 1rem;background:linear-gradient(transparent,rgba(37,9,63,.92));color:#fff;font-family:var(--serif);font-size:1.35rem;font-weight:600}
+@media(max-width:620px){.strip{grid-template-columns:1fr}.cb{padding:1.4rem 1.4rem 1.8rem}}
+
+/* ===== THEME, TRANSLATOR & FINISHING TOUCHES ===== */
+::selection{background:var(--gold);color:var(--purple-deep)}
+html{scrollbar-color:var(--gold) #1b0b33}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:#1b0b33}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold-light),var(--gold));border-radius:6px;border:2px solid #1b0b33}
+main{position:relative}
+header.site::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-light),transparent)}
+
+/* Theme toggle */
+.theme-btn{display:inline-flex;align-items:center;gap:.7rem;background:none;border:1px solid var(--gold);color:var(--purple);width:42px;height:42px;border-radius:50%;justify-content:center;transition:.25s}
+.theme-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.theme-btn:hover{background:var(--gold);color:var(--purple-deep)}
+.theme-btn .tl{display:none}
+.i-sun{display:none}
+html[data-theme=dark] .i-sun{display:block}
+html[data-theme=dark] .i-moon{display:none}
+.nav-lang-li{display:none}
+
+/* Translator */
+.lang{position:absolute;top:14px;left:max(4vw,calc((100vw - var(--w))/2 + 4px));z-index:60}
+.lang-btn{display:inline-flex;align-items:center;gap:.6rem;padding:.55rem .9rem .55rem .65rem;background:rgba(37,9,63,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;border:1px solid var(--gold);font-weight:500;font-size:.92rem;letter-spacing:.02em;box-shadow:0 8px 22px rgba(0,0,0,.3);transition:.2s}
+.lang-btn:hover{background:var(--purple-deep);border-color:var(--gold-light)}
+.lang-btn .caret{width:16px;height:16px;stroke:var(--gold-light);fill:none;stroke-width:2;transition:transform .25s}
+.lang-btn[aria-expanded=true] .caret{transform:rotate(180deg)}
+.lang-flag{display:inline-flex;width:26px;height:19px;align-items:center;justify-content:center;flex:none}
+.lang-flag img{width:26px;height:19px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.lang-flag span{font-size:1.15rem;line-height:1}
+.lang-panel{position:absolute;top:calc(100% + 8px);left:0;width:min(330px,calc(100vw - 2rem));background:#fff;border-top:3px solid var(--gold);box-shadow:0 24px 60px rgba(37,9,63,.35);color:var(--ink)}
+.lang-panel[hidden]{display:none}
+.lang-head{display:flex;align-items:center;gap:.6rem;padding:.8rem 1rem;border-bottom:1px solid var(--line)}
+.lang-head svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:2;flex:none}
+.lang-head input{flex:1;border:0;background:transparent;font:inherit;color:inherit;min-width:0}
+.lang-head input:focus{outline:none}
+#langList{list-style:none;max-height:min(55vh,380px);overflow-y:auto;overscroll-behavior:contain}
+#langList button{display:flex;align-items:center;gap:.8rem;width:100%;padding:.62rem 1rem;background:none;border:0;text-align:left;color:inherit;font:inherit;font-size:.95rem}
+#langList button:hover,#langList button:focus-visible{background:var(--lavender)}
+#langList button[aria-selected=true]{background:var(--gold-soft);font-weight:600}
+#langList small{display:block;color:var(--muted);font-size:.78rem;line-height:1.2}
+#langList .nm{flex:1;line-height:1.25}
+.lang-note{padding:.6rem 1rem;font-size:.75rem;color:var(--muted);border-top:1px solid var(--line);max-width:none}
+#toast{position:fixed;left:50%;bottom:1.4rem;transform:translate(-50%,30px);background:var(--purple-deep);color:#fff;border:1px solid var(--gold);padding:.8rem 1.3rem;z-index:3000;opacity:0;visibility:hidden;transition:.3s;max-width:90vw;text-align:center;font-size:.95rem}
+#toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+[dir=rtl] .lang{left:auto;right:max(4vw,calc((100vw - var(--w))/2 + 4px))}
+[dir=rtl] .lang-panel{left:auto;right:0}
+[dir=rtl] .slides{direction:ltr}
+[dir=rtl] .slide .txt{direction:rtl;text-align:right}
+/* hide Google's own UI */
+.goog-te-banner-frame,.goog-te-banner-frame.skiptranslate,iframe.goog-te-banner-frame{display:none!important}
+body{top:0!important;position:static!important}
+#goog-gt-tt,.goog-tooltip,.goog-tooltip:hover{display:none!important}
+.goog-text-highlight{background:none!important;box-shadow:none!important}
+.skiptranslate>iframe{display:none!important}
+
+@media(max-width:1240px){
+  .theme-btn{width:100%;height:auto;border:0;border-bottom:1px solid var(--line);border-radius:0;justify-content:flex-start;padding:.85rem 0;color:var(--ink);font:inherit;font-weight:500}
+  .theme-btn:hover{background:none;color:var(--link)}
+  .theme-btn .tl{display:inline}
+  .nav-lang-li{display:list-item}
+}
+@media(max-width:620px){.lang{top:10px;left:10px}.lang-btn{padding:.45rem .7rem .45rem .55rem;font-size:.85rem}.banner{padding-top:4.8rem}[dir=rtl] .lang{right:10px}}
+
+/* ===== NIGHT MODE ===== */
+html[data-theme=dark]{--link:#e8c968;--ink:#efe7fa;--muted:#b9aad3;--line:rgba(201,162,39,.24);--lavender:#1b0b33;--gold-soft:rgba(201,162,39,.16);color-scheme:dark}
+html[data-theme=dark] body{background:#10051f;color:var(--ink)}
+:where(html[data-theme=dark]) h1,:where(html[data-theme=dark]) h2,:where(html[data-theme=dark]) h3,:where(html[data-theme=dark]) h4{color:#f6eccb}
+html[data-theme=dark] header.site{background:rgba(18,6,34,.96);border-bottom-color:rgba(201,162,39,.5)}
+html[data-theme=dark] .brand b{color:#f6eccb}
+html[data-theme=dark] .burger span,html[data-theme=dark] .burger span::before,html[data-theme=dark] .burger span::after{background:#f6eccb}
+html[data-theme=dark] .burger.open span{background:transparent}
+html[data-theme=dark] nav.main a.nl:hover,html[data-theme=dark] nav.main a.nl.active{color:var(--gold-light)}
+html[data-theme=dark] .sub{background:#1b0b33}
+html[data-theme=dark] .sub a:hover{background:#2a1050;color:var(--gold-light)}
+html[data-theme=dark] nav.main{background:#150829}
+html[data-theme=dark] .theme-btn{color:var(--gold-light)}
+html[data-theme=dark] .section.tint{background:linear-gradient(180deg,#150829,#1c0b35)}
+html[data-theme=dark] .card{background:#1b0b33;border-color:rgba(201,162,39,.3);box-shadow:inset 0 0 0 5px #1b0b33,inset 0 0 0 6px rgba(201,162,39,.38)}
+html[data-theme=dark] .card:hover{box-shadow:inset 0 0 0 5px #1b0b33,inset 0 0 0 6px rgba(201,162,39,.75),0 24px 48px rgba(0,0,0,.5)}
+html[data-theme=dark] .card.pic{box-shadow:none}
+html[data-theme=dark] .card.pic:hover{box-shadow:0 0 0 1px rgba(201,162,39,.7),0 24px 48px rgba(0,0,0,.5)}
+html[data-theme=dark] .ico{box-shadow:0 0 0 3px #1b0b33,0 0 0 4px var(--gold)}
+html[data-theme=dark] .rule::after{box-shadow:0 0 0 3px #10051f,0 0 0 4px rgba(201,162,39,.65)}
+html[data-theme=dark] .section.dark .rule::after,html[data-theme=dark] .banner .rule::after{box-shadow:0 0 0 3px var(--purple-deep),0 0 0 4px rgba(201,162,39,.7)}
+html[data-theme=dark] .split img.frame{box-shadow:0 0 0 1px var(--gold),0 0 0 10px #10051f,0 0 0 11px rgba(201,162,39,.5),0 30px 60px rgba(0,0,0,.6)}
+html[data-theme=dark] .wideimg{box-shadow:0 0 0 1px var(--gold),0 0 0 8px #10051f,0 0 0 9px rgba(201,162,39,.5),0 26px 50px rgba(0,0,0,.55)}
+html[data-theme=dark] .donate-box{background:#1b0b33;border-color:rgba(201,162,39,.3);box-shadow:inset 0 0 0 6px #1b0b33,inset 0 0 0 7px rgba(201,162,39,.4),0 30px 70px rgba(0,0,0,.55)}
+html[data-theme=dark] .field label{color:#f6eccb}
+html[data-theme=dark] .field input,html[data-theme=dark] .field select,html[data-theme=dark] .field textarea{background:#10051f;color:var(--ink);border-color:rgba(201,162,39,.35)}
+html[data-theme=dark] .field input:focus,html[data-theme=dark] .field select:focus,html[data-theme=dark] .field textarea:focus{border-color:var(--gold-light)}
+html[data-theme=dark] .amt{background:#10051f;color:#f6eccb;border-color:rgba(201,162,39,.3)}
+html[data-theme=dark] .amt.on{background:var(--purple);color:var(--gold-light);border-color:var(--gold)}
+html[data-theme=dark] .freq{border-color:var(--gold)}
+html[data-theme=dark] .freq button{background:#10051f;color:var(--gold-light)}
+html[data-theme=dark] .freq button.on{background:var(--purple);color:#fff}
+html[data-theme=dark] .impact-line{background:rgba(201,162,39,.13);color:#f6eccb}
+html[data-theme=dark] .faq summary{color:#f6eccb}
+html[data-theme=dark] .faq details{border-color:rgba(201,162,39,.25)}
+html[data-theme=dark] .modal .box{background:#1b0b33;color:var(--ink)}
+html[data-theme=dark] .btn-line{border-color:var(--gold);color:var(--gold-light)}
+html[data-theme=dark] .btn-line:hover{background:var(--gold);color:var(--purple-deep)}
+html[data-theme=dark] .lang-panel{background:#1b0b33;color:var(--ink)}
+html[data-theme=dark] #langList button:hover,html[data-theme=dark] #langList button:focus-visible{background:#2a1050}
+html[data-theme=dark] #langList button[aria-selected=true]{background:rgba(201,162,39,.2)}
+html[data-theme=dark] .mosaic figure,html[data-theme=dark] .strip figure{box-shadow:0 0 0 1px var(--gold),0 14px 34px rgba(0,0,0,.5)}
+html[data-theme=dark] .thumbw{border-color:var(--gold)}
+html[data-theme=dark] .card p{color:var(--muted)}
+html[data-theme=dark] .secure{color:var(--muted)}
+nav.main a.nl{white-space:nowrap}
+nav.main ul{gap:clamp(1rem,1.5vw,1.7rem)}
+.brand small{white-space:nowrap}
+.brand>span{min-width:0}
+</style>
+</head>
+<body>
+
+<div id="sp" aria-hidden="true"></div>
+<!-- PRELOADER -->
+<div id="preloader" role="status" aria-live="polite">
+  <div class="p-hearts" aria-hidden="true"></div>
+  <img class="p-logo" data-img="logo" alt="ML Donation logo">
+  <div class="p-msg" id="pmsg">Every child deserves a better life</div>
+  <div class="p-sub">ML DONATION COMMUNITY</div>
+  <div class="p-bar"><span></span></div>
+</div>
+
+<div class="topbar"><div class="wrap">
+  <span>Giving hope to orphans and underprivileged children, one child at a time.</span>
+  <a href="mailto:help.mldonation@gmail.com">help.mldonation@gmail.com</a>
+</div></div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#/home" aria-label="ML Donation Community home">
+      <img data-img="logo" alt="">
+      <span><b class="notranslate" translate="no">ML Donation<br>Community</b><small>EVERY CHILD DESERVES A BETTER LIFE</small></span>
+    </a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <nav class="main" id="nav" aria-label="Main">
+      <ul>
+        <li><a class="nl" href="#/home">Home</a></li>
+        <li><a class="nl" href="#/about">About Us</a></li>
+        <li class="has-sub"><a class="nl" href="#/programs">Our Work</a>
+          <ul class="sub">
+            <li><a href="#/programs/hospitals">Hospitals &amp; Healthcare</a></li>
+            <li><a href="#/programs/schools">Schools &amp; Education</a></li>
+            <li><a href="#/programs/orphanages">Orphanages &amp; Safe Homes</a></li>
+            <li><a href="#/programs/nutrition">Food &amp; Nutrition</a></li>
+            <li><a href="#/programs/water">Clean Water &amp; Sanitation</a></li>
+            <li><a href="#/programs/emergency">Emergency Relief</a></li>
+            <li><a href="#/programs/skills">Youth Skills &amp; Mentorship</a></li>
+          </ul>
+        </li>
+        <li><a class="nl" href="#/impact">Your Impact</a></li>
+        <li><a class="nl" href="#/involved">Get Involved</a></li>
+        <li><a class="nl" href="#/contact">Contact</a></li>
+        <li class="nav-tools"><button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to night mode" title="Day / Night mode">
+          <svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <span class="tl">Night mode</span></button></li>
+        <li class="nav-lang-li"><button class="theme-btn" id="navLang" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.500 3 14.500 0 18M12 3c-3 3.500-3 14.500 0 18"/></svg><span class="tl">Language</span></button></li>
+        <li><a class="btn btn-gold" href="#/donate" style="padding:.7rem 1.5rem">Donate</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<div class="lang notranslate" translate="no" id="lang">
+  <button class="lang-btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="langPanel">
+    <span class="lang-flag" id="langFlag"></span><span id="langName">English</span>
+    <svg class="caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
+  <div class="lang-panel" id="langPanel" hidden>
+    <div class="lang-head"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.500-3.500"/></svg><input id="langSearch" type="search" placeholder="Search language" aria-label="Search language" autocomplete="off"></div>
+    <ul id="langList" role="listbox" aria-label="Languages"></ul>
+    <p class="lang-note">Powered by automatic translation. Needs an internet connection.</p>
+  </div>
+</div>
+
+<!-- HOME -->
+<div class="page" id="page-home">
+  <section class="hero" aria-roledescription="carousel" aria-label="Featured">
+    <div class="slides" id="slides">
+      <div class="slide">
+        <div class="txt">
+          <div class="kicker">Together we give</div>
+          <h1>Every child deserves a better life.</h1>
+          <p>ML Donation Community brings healthcare, education, food and a safe home to orphans and children who have too little. Your gift reaches a child.</p>
+          <div class="ctas"><a class="btn btn-gold" href="#/donate">Donate now</a><a class="btn btn-outline" href="#/about">Our story</a></div>
+        </div>
+        <div class="pic"><img data-img="h1" alt="Smiling children in ML Donation shirts around a donation box of toys, school supplies and clothes" style="object-position:50% 35%"></div>
+      </div>
+      <div class="slide">
+        <div class="txt">
+          <div class="kicker">Give. Help. Change.</div>
+          <h1>Giving hope, together.</h1>
+          <p>From community drives to hospital wards and classrooms, volunteers and donors are standing with children who need it most. Join us.</p>
+          <div class="ctas"><a class="btn btn-gold" href="#/programs">See our work</a><a class="btn btn-outline" href="#/involved">Volunteer with us</a></div>
+        </div>
+        <div class="pic"><img data-img="h2" alt="Volunteers and children at an ML Donation community giving event" style="object-position:50% 45%"></div>
+      </div>
+    </div>
+    <button class="arrow prev" id="prev" aria-label="Previous slide">&#8592;</button>
+    <button class="arrow next" id="next" aria-label="Next slide">&#8594;</button>
+    <div class="hero-ctrl" id="dots"></div>
+  </section>
+
+  <div class="give-strip"><div class="wrap">
+    <strong>Choose a gift for a child today</strong>
+    <div class="chips" id="quickChips"></div>
+  </div></div>
+
+  <div class="marquee" aria-hidden="true"><div class="mq-track">
+    <span>Every child deserves a better life</span><span>Give. Help. Change.</span><span>Together we give</span><span>Support children's future</span>
+    <span>Every child deserves a better life</span><span>Give. Help. Change.</span><span>Together we give</span><span>Support children's future</span>
+    <span>Every child deserves a better life</span><span>Give. Help. Change.</span><span>Together we give</span><span>Support children's future</span>
+    <span>Every child deserves a better life</span><span>Give. Help. Change.</span><span>Together we give</span><span>Support children's future</span>
+  </div></div>
+
+  <section class="section">
+    <div class="wrap split">
+      <div>
+        <h2>A royal standard of care for every child</h2>
+        <div class="rule"></div>
+        <p>ML Donation Community exists for one reason: no child should go without medical care, a classroom, a meal or a place to feel safe because of the family they were born into.</p>
+        <p>We work alongside hospitals, schools and children's homes to meet real needs directly, and we hold ourselves to the highest standard of honesty in how every gift is used.</p>
+        <p style="margin-top:1.8rem"><a class="btn btn-purple" href="#/about">Read about our mission</a></p>
+      </div>
+      <img class="frame" data-img="h1" alt="Children holding books and crayons at a donation table" style="object-position:50% 40%">
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="center"><h2>Moments of giving</h2><div class="rule"></div>
+      <p class="lead">Children, volunteers and neighbours coming together for a better tomorrow.</p></div>
+      <div class="mosaic">
+        <figure class="m1"><img data-img="volunteer" alt="A volunteer hands books and pencils to a smiling child" style="object-position:45% 40%" loading="lazy"></figure>
+        <figure class="m2"><img data-img="reading" alt="A girl reading a book from a book drive" style="object-position:60% 40%" loading="lazy"></figure>
+        <figure class="m3"><img data-img="play" alt="Children laughing and running at a charity play day" style="object-position:50% 40%" loading="lazy"></figure>
+        <figure class="m4"><img data-img="drive" alt="Volunteers sorting donated clothes and books at a community charity drive" style="object-position:50% 40%" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tint">
+    <div class="wrap">
+      <div class="center"><h2>Where your gift goes</h2><div class="rule"></div>
+      <p class="lead">Seven areas of work, one vision: a better life for every child.</p></div>
+      <div class="grid g3" id="homeCards" style="margin-top:3rem"></div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap center">
+      <h2>What your gift can do</h2><div class="rule"></div>
+      <p class="lead">Examples of how each gift level helps a child. Select any amount to give.</p>
+      <div class="ladder" id="ladder" style="margin-top:3rem;text-align:left"></div>
+    </div>
+  </section>
+
+  <section class="cine" data-bgimg="sunrise" data-ov="soft">
+    <div class="wrap center">
+      <h2>Every morning, a child walks toward a better future.</h2>
+      <div class="rule"></div>
+      <p class="lead">Your gift helps make sure there is a classroom, a meal and someone waiting for them.</p>
+      <p style="margin-top:2rem"><a class="btn btn-gold" href="#/donate">Give a child a better tomorrow</a></p>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap center">
+      <h2>The Royal Patrons Circle</h2><div class="rule"></div>
+      <p class="lead">For donors who wish to make a lasting difference in a child's life.</p>
+      <div class="tiers">
+        <div class="tier"><svg class="crown" viewBox="0 0 24 24"><path d="M3 18l2-10 5 5 2-8 2 8 5-5 2 10z"/></svg><h3>Patron</h3><b>$1,000</b><ul><li>A personal thank-you from our team</li><li>An update on the work your gift supports</li></ul><button class="btn btn-outline" data-a="1000" type="button">Become a Patron</button></div>
+        <div class="tier"><svg class="crown" viewBox="0 0 24 24"><path d="M3 18l2-10 5 5 2-8 2 8 5-5 2 10z"/></svg><h3>Benefactor</h3><b>$3,000</b><ul><li>A personal thank-you from our team</li><li>A detailed report on how your gift was used</li></ul><button class="btn btn-outline" data-a="3000" type="button">Become a Benefactor</button></div>
+        <div class="tier feat"><svg class="crown" viewBox="0 0 24 24"><path d="M3 18l2-10 5 5 2-8 2 8 5-5 2 10z"/></svg><h3>Royal Patron</h3><b>$5,000</b><ul><li>A personal thank-you from our team</li><li>A detailed report on how your gift was used</li><li>An invitation to our community events</li></ul><button class="btn btn-gold" data-a="5000" type="button">Become a Royal Patron</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap center">
+      <p class="quote">"Together we give. Support children's future."</p>
+      <div class="rule"></div>
+      <p class="lead">Be part of the community that makes it possible.</p>
+      <p style="margin-top:1.8rem"><a class="btn btn-gold" href="#/donate">Make a donation</a></p>
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <section class="banner" data-bgimg="volunteer"><div class="wrap">
+    <div class="crumbs"><a href="#/home">Home</a> / About Us</div>
+    <h1>About ML Donation Community</h1>
+    <p>A community built on the belief that every child deserves a better life.</p>
+  </div></section>
+  <section class="section"><div class="wrap split">
+    <img class="frame" data-img="volunteer" alt="A smiling volunteer hands books and pencils to a child outside a community learning centre" style="object-position:50% 50%" loading="lazy">
+    <div>
+      <h2>Our vision</h2><div class="rule"></div>
+      <p>To give every child a better life. That means a healthy body, an education, enough to eat, clean water and a safe place to call home.</p>
+      <h3 style="margin-top:2rem">Our mission</h3>
+      <p style="margin-top:.6rem">To connect generous people with orphans and underprivileged children, and to deliver help directly through hospitals, schools, children's homes and community partners.</p>
+      <ul class="checks">
+        <li><b>Children first.</b> Every decision starts with what a child needs.</li>
+        <li><b>Dignity.</b> We help children as the capable, valued people they are.</li>
+        <li><b>Transparency.</b> Donors can ask how their gift was used, and we answer.</li>
+        <li><b>Community.</b> Donors, volunteers and partners are one family.</li>
+      </ul>
+    </div>
+  </div></section>
+  <section class="section tint"><div class="wrap">
+    <div class="center"><h2>How we work</h2><div class="rule"></div></div>
+    <div class="grid g3" style="margin-top:2.5rem">
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div><h3>We identify needs</h3><p>We work with local hospitals, schools and children's homes to learn what children actually need most.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg></div><h3>We deliver help directly</h3><p>Gifts are turned into care, supplies, meals and learning that reach the child, not just the organization.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><h3>We report back</h3><p>Donors receive updates on the programs they support, so you can see the difference you make.</p></div>
+    </div>
+  </div></section>
+</div>
+
+<!-- PROGRAMS INDEX -->
+<div class="page" id="page-programs">
+  <section class="banner" data-bgimg="reading"><div class="wrap">
+    <div class="crumbs"><a href="#/home">Home</a> / Our Work</div>
+    <h1>Our Work</h1>
+    <p>Seven ways we are giving children a better life.</p>
+  </div></section>
+  <section class="section"><div class="wrap"><div class="grid g3" id="progCards"></div></div></section>
+</div>
+
+<!-- PROGRAM DETAIL (dynamic) -->
+<div class="page" id="page-program"></div>
+
+<!-- IMPACT -->
+<div class="page" id="page-impact">
+  <section class="banner" data-bgimg="meal"><div class="wrap">
+    <div class="crumbs"><a href="#/home">Home</a> / Your Impact</div>
+    <h1>Your Impact</h1>
+    <p>See what each gift can do for a child.</p>
+  </div></section>
+  <section class="section" style="padding-bottom:0"><div class="wrap"><div class="strip">
+    <figure><img data-img="clinic" alt="A doctor listening to a child's heartbeat" style="object-position:40% 40%" loading="lazy"><figcaption>Care when they are unwell</figcaption></figure>
+    <figure><img data-img="meal" alt="Children enjoying a shared meal" style="object-position:50% 40%" loading="lazy"><figcaption>Food to help them grow</figcaption></figure>
+    <figure><img data-img="digital" alt="Children learning with laptops" style="object-position:50% 40%" loading="lazy"><figcaption>Learning to build their future</figcaption></figure>
+  </div></div></section>
+  <section class="section"><div class="wrap">
+    <div class="center"><h2>Every amount matters</h2><div class="rule"></div><p class="lead">The examples below show how gifts of each size can help. Choose the one that feels right for you.</p></div>
+    <div class="grid g2" id="impactList" style="margin-top:3rem"></div>
+  </div></section>
+  <section class="section tint"><div class="wrap center">
+    <h2>Our promise to donors</h2><div class="rule"></div>
+    <div class="grid g3" style="margin-top:2.5rem;text-align:left">
+      <div class="card"><h3>Honest reporting</h3><p>We tell you how your gift was used and share updates on the programs you support.</p></div>
+      <div class="card"><h3>Child protection</h3><p>We protect children's privacy and dignity. Images and stories are shared only with proper care and consent.</p></div>
+      <div class="card"><h3>Your questions answered</h3><p>Write to help.mldonation@gmail.com any time and a member of our team will reply.</p></div>
+    </div>
+  </div></section>
+</div>
+
+<!-- GET INVOLVED -->
+<div class="page" id="page-involved">
+  <section class="banner" data-bgimg="drive"><div class="wrap">
+    <div class="crumbs"><a href="#/home">Home</a> / Get Involved</div>
+    <h1>Get Involved</h1>
+    <p>Giving money is one way. Your time, voice and skills help children too.</p>
+  </div></section>
+  <section class="section"><div class="wrap split">
+    <img class="frame" data-img="drive" alt="Volunteers sorting donated clothes, books and toys at a community charity drive" style="object-position:50% 40%" loading="lazy">
+    <div>
+      <h2>Many hands, one mission</h2><div class="rule"></div>
+      <p>Our community drives run on neighbours who sort clothes, pack books and welcome families. Whatever time or skill you can offer, there is a place for you.</p>
+      <p>Contact us to find out how you can help.</p>
+      <p style="margin-top:1.6rem"><a class="btn btn-purple" href="mailto:help.mldonation@gmail.com?subject=I%20want%20to%20help">Email our team</a></p>
+    </div>
+  </div></section>
+  <section class="section"><div class="wrap grid g3">
+    <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></div><h3>Volunteer</h3><p>Join our community drives, read with children, help at events, or share a professional skill.</p><a class="more" href="mailto:help.mldonation@gmail.com?subject=Volunteer%20with%20ML%20Donation%20Community">Email us to volunteer</a></div>
+    <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18M12 8c-2-4-6-3-5 0 .5 1.500 3 1.500 5 0zm0 0c2-4 6-3 5 0-.5 1.500-3 1.500-5 0z"/></svg></div><h3>Donate goods</h3><p>Toys, books, school supplies, clothes and non-perishable food. Contact us to arrange a drop-off.</p><a class="more" href="mailto:help.mldonation@gmail.com?subject=Donating%20goods">Ask about drop-offs</a></div>
+    <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div><h3>Partner with us</h3><p>Hospitals, schools, businesses and faith groups: let's work together to reach more children.</p><a class="more" href="mailto:help.mldonation@gmail.com?subject=Partnership%20enquiry">Start a conversation</a></div>
+    <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg></div><h3>Fundraise</h3><p>Host a birthday fundraiser, bake sale, school drive or office collection for children in need.</p><a class="more" href="mailto:help.mldonation@gmail.com?subject=Fundraising%20for%20ML%20Donation">Plan a fundraiser</a></div>
+    <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Give monthly</h3><p>A steady monthly gift lets us plan care for children over time, not just for a moment.</p><a class="more" href="#/donate">Set up monthly giving</a></div>
+    <div class="card"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg></div><h3>Spread the word</h3><p>Tell your friends and family. Share our mission and #GiveHope on social media.</p><a class="more" href="mailto:help.mldonation@gmail.com?subject=Spread%20the%20word">Get shareable materials</a></div>
+  </div></section>
+</div>
+
+<!-- DONATE -->
+<div class="page" id="page-donate">
+  <section class="banner" data-bgimg="sunrise"><div class="wrap">
+    <div class="crumbs"><a href="#/home">Home</a> / Donate</div>
+    <h1>Make a donation</h1>
+    <p>Choose an amount and give a child a better life.</p>
+  </div></section>
+  <section class="section"><div class="wrap donate-wrap">
+    <div class="donate-box">
+      <h3 style="margin-bottom:1.2rem">Your gift</h3>
+      <div class="freq" role="group" aria-label="Frequency">
+        <button type="button" class="on" data-f="One-time">One-time</button>
+        <button type="button" data-f="Monthly">Monthly</button>
+      </div>
+      <div class="amounts" id="amounts"></div>
+      <div class="field"><label for="custom">Or enter another amount (USD)</label><input id="custom" type="number" min="1" inputmode="numeric" placeholder="Other amount"></div>
+      <div class="field"><label for="fund">Direct my gift to</label>
+        <select id="fund"></select>
+      </div>
+      <div class="impact-line" id="impactLine"></div>
+      <div class="row2">
+        <div class="field"><label for="dn">Full name</label><input id="dn" autocomplete="name"></div>
+        <div class="field"><label for="de">Email</label><input id="de" type="email" autocomplete="email"></div>
+      </div>
+      <div class="field"><label for="dm">Message (optional)</label><textarea id="dm" rows="3" placeholder="A note for the children or our team"></textarea></div>
+      <div class="err" id="derr" role="alert"></div>
+      <button class="btn btn-gold" id="giveBtn" style="width:100%;margin-top:.6rem;font-size:1.05rem" type="button">Donate</button>
+      <p class="secure">Questions about giving? Write to help.mldonation@gmail.com</p>
+    </div>
+    <aside>
+      <h2 style="font-size:2.2rem">Why give?</h2><div class="rule"></div>
+      <p>Behind every gift is a child who is cared for, taught, fed or kept safe.</p>
+      <ul class="checks">
+        <li>Support children in hospitals, schools and safe homes</li>
+        <li>Give once or set up monthly giving</li>
+        <li>Receive updates on the programs you support</li>
+        <li>Contact us any time with questions</li>
+      </ul>
+      <img class="frame" data-img="h1" alt="Happy children" style="margin-top:2rem;border:1px solid var(--gold);padding:8px;aspect-ratio:16/11;object-fit:cover;object-position:50% 30%;width:100%">
+    </aside>
+  </div></section>
+  <section class="section tint"><div class="wrap center">
+    <h2>Questions about giving</h2><div class="rule"></div>
+    <div class="faq">
+      <details><summary>Can I choose where my gift goes?</summary><p>Yes. Pick a program in the donation form. If you choose General, we use your gift where children need it most.</p></details>
+      <details><summary>Can I give every month?</summary><p>Yes. Switch the form to Monthly. Regular gifts help us plan care for children over time.</p></details>
+      <details><summary>How will I know my gift made a difference?</summary><p>We share updates on the programs we support. You can also write to us any time at help.mldonation@gmail.com.</p></details>
+      <details><summary>Can I donate toys, books or clothes?</summary><p>Yes. Email help.mldonation@gmail.com and we will tell you how to arrange a drop-off.</p></details>
+      <details><summary>How do I ask about receipts or other ways to give?</summary><p>Email help.mldonation@gmail.com and our team will help you.</p></details>
+    </div>
+  </div></section>
+</div>
+
+<!-- CONTACT -->
+<div class="page" id="page-contact">
+  <section class="banner" data-bgimg="volunteer"><div class="wrap">
+    <div class="crumbs"><a href="#/home">Home</a> / Contact</div>
+    <h1>Contact us</h1>
+    <p>We would love to hear from you.</p>
+  </div></section>
+  <section class="section"><div class="wrap split" style="align-items:start">
+    <div>
+      <h2>Get in touch</h2><div class="rule"></div>
+      <p>For donations, volunteering, partnerships or any question about our work, email our team and we will reply as soon as we can.</p>
+      <p style="margin-top:1.6rem"><b>Email</b><br><a href="mailto:help.mldonation@gmail.com" style="color:var(--link);border-bottom:2px solid var(--gold);font-size:1.2rem">help.mldonation@gmail.com</a></p>
+      <p style="margin-top:1.6rem"><b>Our motto</b><br>Every child deserves a better life.</p>
+    </div>
+    <form class="donate-box" id="cform" action="mailto:help.mldonation@gmail.com" method="post" enctype="text/plain">
+      <h3>Send a message</h3>
+      <div class="field"><label for="cn">Your name</label><input id="cn" name="Name" required></div>
+      <div class="field"><label for="ce">Your email</label><input id="ce" name="Email" type="email" required></div>
+      <div class="field"><label for="cm">Message</label><textarea id="cm" name="Message" rows="5" required></textarea></div>
+      <button class="btn btn-gold" style="width:100%;margin-top:1.3rem" type="submit">Send message</button>
+      <p class="secure">This opens your email app, addressed to help.mldonation@gmail.com.</p>
+    </form>
+  </div></section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <img class="flogo" data-img="logo" alt="ML Donation logo">
+        <p>ML Donation Community. Giving hope together to orphans and underprivileged children.</p>
+      </div>
+      <div><h4>Explore</h4><ul>
+        <li><a href="#/about">About Us</a></li><li><a href="#/programs">Our Work</a></li><li><a href="#/impact">Your Impact</a></li><li><a href="#/involved">Get Involved</a></li><li><a href="#/contact">Contact</a></li></ul></div>
+      <div><h4>Our Work</h4><ul>
+        <li><a href="#/programs/hospitals">Hospitals</a></li><li><a href="#/programs/schools">Schools</a></li><li><a href="#/programs/orphanages">Orphanages</a></li><li><a href="#/programs/nutrition">Nutrition</a></li><li><a href="#/programs/water">Clean Water</a></li></ul></div>
+      <div><h4>Give hope</h4>
+        <p>Every gift helps a child.</p>
+        <p style="margin:1rem 0"><a class="btn btn-gold" href="#/donate">Donate</a></p>
+        <a href="mailto:help.mldonation@gmail.com">help.mldonation@gmail.com</a></div>
+    </div>
+    <div class="copy"><span>&copy; <span id="yr"></span> ML Donation Community. All rights reserved.</span><span>Every child deserves a better life. #GiveHope</span></div>
+  </div>
+</footer>
+
+<!-- Thank you modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+  <div class="box">
+    <img data-img="logo" alt="">
+    <h3 id="mt">Thank you</h3>
+    <p id="mp"></p>
+    <button class="btn btn-purple" id="mclose" type="button">Close</button>
+  </div>
+</div>
+
+<div id="google_translate_element" aria-hidden="true" style="position:absolute;left:-9999px;top:0;height:0;overflow:hidden"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<button id="top" type="button" aria-label="Back to top">&#8593;</button>
+<script>
+const IMG={logo:"images/logo.png",h1:"images/hero-1.jpg",h2:"images/hero-2.jpg",meal:"images/meal.jpg",reading:"images/reading.jpg",volunteer:"images/volunteer.jpg",clinic:"images/clinic.jpg",digital:"images/digital.jpg",play:"images/play.jpg",drive:"images/drive.jpg",sunrise:"images/sunrise.jpg"};
+const OV={hard:'linear-gradient(110deg,rgba(37,9,63,.95),rgba(55,20,107,.87) 55%,rgba(74,29,143,.62))',soft:'linear-gradient(180deg,rgba(37,9,63,.5),rgba(37,9,63,.82))'};
+const bgStyle=(k,o='hard')=>`background-image:${OV[o]},url('${IMG[k]}');background-size:cover;background-position:center`;
+document.querySelectorAll('[data-bgimg]').forEach(el=>el.setAttribute('style',bgStyle(el.dataset.bgimg,el.dataset.ov||'hard')));
+document.querySelectorAll('[data-img]').forEach(i=>i.src=IMG[i.dataset.img]);
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+const AMOUNTS=[50,100,200,500,1000,2000,3000,5000];
+const IMPACT={
+ 50:"Provides school supplies and a warm meal plan for a child.",
+ 100:"Covers a child's essential clothing and learning materials.",
+ 200:"Helps pay for a child's basic medical check-up and medicine.",
+ 500:"Supports a child's education for a term, including books and uniform.",
+ 1000:"Helps provide a month of safe housing, food and care for a child.",
+ 2000:"Supports healthcare or learning for several children in a partner hospital or school.",
+ 3000:"Helps equip a classroom or children's ward with essentials.",
+ 5000:"Makes a major difference: sponsors long-term care and education for a child."
+};
+const P={
+ hospitals:{t:"Hospitals & Healthcare",s:"Medical care for children whose families cannot afford it.",
+  ic:'<path d="M12 5v14M5 12h14"/><rect x="3" y="3" width="18" height="18" rx="2"/>',
+  d:["Sickness should never be made worse by poverty. We support children's wards and partner hospitals so that children can be treated, comforted and healed.","Our gifts help pay for treatment, medicines, check-ups, vaccinations and the comfort items that make a hospital stay less frightening."],
+  l:["Treatment and medicine for children in need","Routine check-ups and vaccinations","Comfort packs, toys and books for children's wards","Support for families travelling for care"],f:"Hospitals & Healthcare"},
+ schools:{t:"Schools & Education",s:"Classrooms, books and a chance to learn.",
+  ic:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.500 3 3 6 3s6-1.500 6-3v-5"/>',
+  d:["Education is the surest path out of poverty. We help children stay in school by providing what stands between them and the classroom.","We work with schools to supply uniforms, books, stationery and school fees for children who would otherwise be left behind."],
+  l:["School fees and uniforms","Books, stationery and school bags","Classroom equipment and libraries","Tutoring and learning support"],f:"Schools & Education"},
+ orphanages:{t:"Orphanages & Safe Homes",s:"A safe, loving place for every child to call home.",
+  ic:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+  d:["Children without parents need more than a bed. They need safety, stability and people who care. We support children's homes so every child grows up protected and loved.","Your gifts help with housing, bedding, clothing, daily meals, repairs and the everyday things that make a house a home."],
+  l:["Safe housing, bedding and clothing","Daily meals and household essentials","Counselling and emotional support","Celebrations, play and birthdays"],f:"Orphanages & Safe Homes"},
+ nutrition:{t:"Food & Nutrition",s:"Nutritious meals so children can grow and learn.",
+  ic:'<path d="M5 3v8a3 3 0 0 0 3 3v7M8 3v6M11 3v8a3 3 0 0 1-3 3M17 21V3c-2 2-3 5-3 8h3"/>',
+  d:["A hungry child cannot focus, grow or thrive. We provide nutritious food to children in homes, schools and communities.","From breakfast boxes at community events to regular meals at partner homes, we make sure children start the day nourished."],
+  l:["Nutritious breakfasts and school meals","Food packages for families","Support for children's homes' kitchens","Special attention to children with health needs"],f:"Food & Nutrition"},
+ water:{t:"Clean Water & Sanitation",s:"Safe water and clean facilities for healthy childhoods.",
+  ic:'<path d="M12 3s6 6.500 6 11a6 6 0 0 1-12 0c0-4.500 6-11 6-11z"/>',
+  d:["Dirty water makes children sick and keeps them out of school. Clean water and decent sanitation protect health and dignity.","We support access to safe drinking water, handwashing stations and clean toilets in schools and children's homes."],
+  l:["Safe drinking water points","Handwashing stations and hygiene kits","Clean, private sanitation facilities","Hygiene education for children"],f:"Clean Water & Sanitation"},
+ emergency:{t:"Emergency Relief",s:"Fast help when children are in crisis.",
+  ic:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
+  d:["When disaster, illness or sudden hardship strikes, children are the most vulnerable. Emergency Relief lets us respond quickly.","Gifts to this fund can provide food, blankets, clothing, shelter and urgent medical help for children and families in crisis."],
+  l:["Food, water and blankets","Urgent medical help","Temporary shelter and clothing","Rapid support for families in crisis"],f:"Emergency Relief"},
+ skills:{t:"Youth Skills & Mentorship",s:"Building confident futures beyond the classroom.",
+  ic:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  d:["Children grow into capable adults when someone believes in them. We connect young people with mentors, creative activities and practical skills.","Our programs encourage confidence, teamwork and giving back, including children who join our own community drives."],
+  l:["Mentorship from caring volunteers","Arts, music, sports and reading clubs","Practical and digital skills","Leadership and community service for kids"],f:"Youth Skills & Mentorship"}
+};
+const svg=p=>`<div class="ico"><svg viewBox="0 0 24 24">${p}</svg></div>`;
+const keys=Object.keys(P);
+const PM={
+ hospitals:['clinic','A volunteer doctor examines a smiling child at a free children\'s health clinic'],
+ schools:['reading','A young girl absorbed in a colourful book from a book drive'],
+ orphanages:['sunrise','A child with a backpack walks toward school at sunrise'],
+ nutrition:['meal','Children sharing a nutritious meal together at a community meal hall'],
+ water:['play','Healthy, happy children running through a playground'],
+ emergency:['drive','Volunteers sorting clothes, books and toys at a community charity drive'],
+ skills:['digital','Children learning together on laptops in a digital learning class']
+};
+keys.forEach(k=>{P[k].img=PM[k][0];P[k].alt=PM[k][1]});
+const cardH=k=>`<div class="card pic"><div class="thumbw"><img class="thumb" src="${IMG[P[k].img]}" alt="${P[k].alt}" loading="lazy"></div><div class="cb">${svg(P[k].ic)}<h3>${P[k].t}</h3><p>${P[k].s}</p><a class="more" href="#/programs/${k}">Learn more</a></div></div>`;
+
+/* Fill dynamic lists */
+document.getElementById('homeCards').innerHTML=keys.slice(0,6).map(cardH).join('');
+document.getElementById('progCards').innerHTML=keys.map(cardH).join('');
+document.getElementById('quickChips').innerHTML=AMOUNTS.map(a=>`<button class="chip" data-a="${a}">$${a.toLocaleString()}</button>`).join('');
+document.getElementById('ladder').innerHTML=[50,200,1000,5000].map(a=>`<div class="rung"><b>$${a.toLocaleString()}</b><span>${IMPACT[a]}</span></div>`).join('');
+document.getElementById('impactList').innerHTML=AMOUNTS.map(a=>`<div class="card" style="flex-direction:row;align-items:center;gap:1.4rem"><b style="font-family:var(--serif);font-size:2.5rem;color:var(--link);min-width:110px">$${a.toLocaleString()}</b><div><p style="color:var(--ink)">${IMPACT[a]}</p><a class="more" href="#/donate" data-a="${a}" style="display:inline-block;margin-top:.6rem;font-weight:600;color:var(--link);border-bottom:2px solid var(--gold)">Give $${a.toLocaleString()}</a></div></div>`).join('');
+
+/* Program pages */
+function renderProgram(k){
+  const p=P[k]; if(!p){location.hash='#/programs';return}
+  document.getElementById('page-program').innerHTML=`
+  <section class="banner" style="${bgStyle(p.img)}"><div class="wrap"><div class="crumbs"><a href="#/home">Home</a> / <a href="#/programs">Our Work</a> / ${p.t}</div><h1>${p.t}</h1><p>${p.s}</p></div></section>
+  <section class="section"><div class="wrap prog-layout">
+    <div>
+      <img class="wideimg" src="${IMG[p.img]}" alt="${p.alt}"><h2>Why it matters</h2><div class="rule"></div>
+      ${p.d.map(x=>`<p>${x}</p>`).join('')}
+      <h3 style="margin-top:2.2rem">What your gift supports</h3>
+      <ul class="checks">${p.l.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap"><a class="btn btn-gold" href="#/donate" data-fund="${p.f}">Donate to this work</a><a class="btn btn-line" href="#/programs">All programs</a></div>
+    </div>
+    <aside class="sidebox">
+      <h3>Give to ${p.t}</h3>
+      <p>Choose an amount to support this work.</p>
+      <div class="chips">${AMOUNTS.map(a=>`<button class="chip" data-a="${a}" data-fund="${p.f}">$${a.toLocaleString()}</button>`).join('')}</div>
+      <p style="font-size:.92rem">Every child deserves a better life.</p>
+    </aside>
+  </div></section>
+  <section class="section tint"><div class="wrap center"><h2>More ways we help</h2><div class="rule"></div>
+  <div class="grid g3" style="margin-top:2.5rem;text-align:left">${keys.filter(x=>x!==k).slice(0,3).map(cardH).join('')}</div></div></section>`;
+}
+
+/* Router */
+function route(){
+  const h=(location.hash||'#/home').replace('#/','').split('/');
+  let id=h[0]||'home';
+  if(id==='programs'&&h[1]){renderProgram(h[1]);id='program'}
+  if(!document.getElementById('page-'+id)) id='home';
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+id));
+  document.querySelectorAll('nav.main a.nl').forEach(a=>{
+    const t=a.getAttribute('href').replace('#/','');
+    a.classList.toggle('active',t===h[0]);
+  });
+  closeNav(); window.scrollTo({top:0,behavior:'instant'});
+  if(id==='donate') syncDonate();
+}
+window.addEventListener('hashchange',route);
+
+/* Mobile nav */
+const nav=document.getElementById('nav'),burger=document.getElementById('burger');
+function closeNav(){document.body.classList.remove('navopen');nav.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded','false')}
+burger.onclick=()=>{const o=nav.classList.toggle('open');burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);document.body.classList.toggle('navopen',o)};
+document.body.addEventListener('click',e=>{if(e.target===document.body)closeNav()});
+
+/* Hero slider */
+let cur=0;const n=2,slides=document.getElementById('slides'),dots=document.getElementById('dots');
+dots.innerHTML=[...Array(n)].map((_,i)=>`<button class="dot" aria-label="Go to slide ${i+1}"></button>`).join('');
+function go(i){cur=(i+n)%n;slides.style.transform=`translateX(-${cur*100}%)`;[...dots.children].forEach((d,j)=>d.classList.toggle('on',j===cur));[...slides.children].forEach((s,j)=>s.classList.toggle('on',j===cur))}
+[...dots.children].forEach((d,i)=>d.onclick=()=>{go(i);reset()});
+document.getElementById('next').onclick=()=>{go(cur+1);reset()};
+document.getElementById('prev').onclick=()=>{go(cur-1);reset()};
+let timer;function reset(){clearInterval(timer);timer=setInterval(()=>go(cur+1),6500)}
+go(0);reset();
+
+/* Donate */
+let amount=100,freq='One-time',fund='General: Every child deserves a better life';
+const funds=['General: Every child deserves a better life',...keys.map(k=>P[k].f)];
+document.getElementById('fund').innerHTML=funds.map(f=>`<option>${f}</option>`).join('');
+const amtWrap=document.getElementById('amounts'),custom=document.getElementById('custom'),fundSel=document.getElementById('fund');
+amtWrap.innerHTML=AMOUNTS.map(a=>`<button type="button" class="amt" data-a="${a}">$${a.toLocaleString()}</button>`).join('');
+function syncDonate(){
+  amtWrap.querySelectorAll('.amt').forEach(b=>b.classList.toggle('on',+b.dataset.a===amount&&!custom.value));
+  fundSel.value=fund;
+  document.getElementById('impactLine').textContent=IMPACT[amount]?IMPACT[amount]:'Your gift of $'+amount+' will help a child get the care they need.';
+  document.getElementById('giveBtn').textContent=`Donate $${(+amount).toLocaleString()}${freq==='Monthly'?' monthly':''}`;
+}
+amtWrap.addEventListener('click',e=>{const b=e.target.closest('.amt');if(!b)return;amount=+b.dataset.a;custom.value='';syncDonate()});
+custom.addEventListener('input',()=>{const v=Math.floor(+custom.value);if(v>0){amount=v}syncDonate();amtWrap.querySelectorAll('.amt').forEach(b=>b.classList.remove('on'))});
+fundSel.onchange=()=>{fund=fundSel.value};
+document.querySelectorAll('.freq button').forEach(b=>b.onclick=()=>{freq=b.dataset.f;document.querySelectorAll('.freq button').forEach(x=>x.classList.toggle('on',x===b));syncDonate()});
+
+/* Any element with data-a jumps to donate with that amount */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-a],[data-fund]');
+  if(!t||t.classList.contains('amt'))return;
+  if(t.dataset.a){amount=+t.dataset.a;custom.value=''}
+  fund=t.dataset.fund||(t.dataset.a&&!t.dataset.fund?fund:fund);
+  if(t.tagName==='BUTTON'){location.hash='#/donate';if(location.hash==='#/donate')syncDonate()}
+  else{syncDonate()}
+});
+
+/* ===== Backend: Supabase (storage) + EmailJS (email) =====
+   Fill in the CONFIG values below (see setup steps). */
+const CONFIG={
+  SUPABASE_URL:"https://feahqhpxwtyshqlzgpse.supabase.co",
+  SUPABASE_KEY:"sb_publishable_49UqH0nnhO6TqLZhfyejIQ_yETj3Uhv",
+  EMAILJS_SERVICE_ID:"service_bfy2pk7",
+  EMAILJS_TEMPLATE_ID:"template_apidsb3",
+  EMAILJS_PUBLIC_KEY:"lz4-2zitxKV7I3iBv"
+};
+const DEFAULT_EMAIL='help.mldonation@gmail.com';
+let siteEmail=DEFAULT_EMAIL;
+const isPH=v=>!v||/^PASTE_/.test(v);
+const binReady=()=>!isPH(CONFIG.SUPABASE_URL)&&!isPH(CONFIG.SUPABASE_KEY);
+const mailReady=()=>!isPH(CONFIG.EMAILJS_SERVICE_ID)&&!isPH(CONFIG.EMAILJS_TEMPLATE_ID)&&!isPH(CONFIG.EMAILJS_PUBLIC_KEY);
+const SB=()=>CONFIG.SUPABASE_URL.replace(/\/$/,'')+'/rest/v1/';
+const SBH=()=>({apikey:CONFIG.SUPABASE_KEY,'Content-Type':'application/json'});
+async function getSiteEmail(){
+  const r=await fetch(SB()+'site_settings?select=site_email&id=eq.1',{headers:SBH(),cache:'no-store'});
+  if(!r.ok)throw new Error('read '+r.status);const a=await r.json();return(a[0]&&a[0].site_email)||DEFAULT_EMAIL;
+}
+async function saveRequest(q){
+  const r=await fetch(SB()+'donation_requests',{method:'POST',headers:Object.assign(SBH(),{Prefer:'return=minimal'}),
+    body:JSON.stringify({name:q.name,email:q.email,amount:q.amount,frequency:q.frequency,fund:q.fund,message:q.message})});
+  if(!r.ok)throw new Error('save '+r.status);
+}
+async function sendMail(params){
+  const r=await fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({service_id:CONFIG.EMAILJS_SERVICE_ID,template_id:CONFIG.EMAILJS_TEMPLATE_ID,user_id:CONFIG.EMAILJS_PUBLIC_KEY,template_params:params})});
+  if(!r.ok)throw new Error('mail '+r.status);
+}
+/* Swap the website email everywhere (links, text, contact form) */
+function applySiteEmail(next){
+  if(!next||next===siteEmail)return;
+  const prev=siteEmail;siteEmail=next;
+  document.querySelectorAll('a[href^="mailto:"]').forEach(a=>a.setAttribute('href',a.getAttribute('href').split(prev).join(next)));
+  const cf=document.getElementById('cform');if(cf)cf.setAttribute('action',(cf.getAttribute('action')||'').split(prev).join(next));
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const t=n.parentNode&&n.parentNode.nodeName;return(t==='SCRIPT'||t==='STYLE')?NodeFilter.FILTER_REJECT:(n.nodeValue.indexOf(prev)>-1?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP)}});
+  const nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+  nodes.forEach(n=>n.nodeValue=n.nodeValue.split(prev).join(next));
+}
+try{const c=localStorage.getItem('mlSiteEmail');if(c)applySiteEmail(c)}catch(e){}
+if(binReady()){getSiteEmail().then(e=>{applySiteEmail(e);try{localStorage.setItem('mlSiteEmail',e)}catch(x){}}).catch(()=>{})}
+
+/* Submit a donation request: saved to JsonBin (admin dashboard) and emailed to the website email */
+document.getElementById('giveBtn').onclick=async()=>{
+  const btn=document.getElementById('giveBtn');
+  const nm=document.getElementById('dn').value.trim().slice(0,100),em=document.getElementById('de').value.trim().slice(0,150),note=document.getElementById('dm').value.trim().slice(0,2000),err=document.getElementById('derr');
+  if(!amount||amount<1){err.textContent='Enter a donation amount of at least $1.';return}
+  if(!nm){err.textContent='Enter your full name.';return}
+  if(!/^\S+@\S+\.\S+$/.test(em)){err.textContent='Enter a valid email address so we can reply to you.';return}
+  const last=+sessionStorage.getItem('mlLastGift')||0;
+  if(Date.now()-last<20000){err.textContent='Please wait a few seconds before sending another request.';return}
+  err.textContent='';
+  const label=btn.textContent;btn.disabled=true;btn.textContent='Sending…';
+  const req={name:nm,email:em,amount:+amount,frequency:freq,fund:fund,message:note};
+  let saved=false,mailed=false;
+  if(binReady()){
+    try{await saveRequest(req);saved=true}catch(e){}
+  }
+  if(mailReady()){
+    try{
+      await sendMail({to_email:siteEmail,to_name:'ML Donation Team',from_name:nm,reply_to:em,
+        subject:'New donation request: '+nm+' - $'+(+amount).toLocaleString(),
+        message:'A visitor has sent a donation request.\n\nName: '+nm+'\nEmail: '+em+'\nAmount: $'+(+amount).toLocaleString()+' ('+freq+')\nDirected to: '+fund+'\nMessage: '+(note||'(none)')+'\n\nReply to them from your admin dashboard.'});
+      mailed=true;
+    }catch(e){}
+  }
+  btn.disabled=false;btn.textContent=label;
+  if(!binReady()&&!mailReady()){ /* not connected yet: open the visitor's email app instead */
+    location.href='mailto:'+siteEmail+'?subject='+encodeURIComponent('Donation request: $'+(+amount).toLocaleString())+'&body='+encodeURIComponent('Name: '+nm+'\nEmail: '+em+'\nAmount: $'+(+amount).toLocaleString()+' ('+freq+')\nDirected to: '+fund+'\nMessage: '+note);
+  }else if(!saved&&!mailed){
+    err.textContent='We could not send your request just now. Please try again, or email us at '+siteEmail+'.';return;
+  }
+  try{sessionStorage.setItem('mlLastGift',Date.now())}catch(e){}
+  document.getElementById('mt').textContent='Thank you, '+nm.split(' ')[0];
+  document.getElementById('mp').textContent=`Your ${freq.toLowerCase()} gift request of $${(+amount).toLocaleString()} for "${fund}" has been received. A member of our team will email you at ${em} with the next steps to complete your donation.`;
+  document.getElementById('modal').classList.add('show');
+  ['dn','de','dm'].forEach(i=>document.getElementById(i).value='');
+};
+document.getElementById('mclose').onclick=()=>document.getElementById('modal').classList.remove('show');
+
+/* Preloader: exactly 7 seconds, then the site */
+(function(){
+  try{if(sessionStorage.getItem('mlSkip')){sessionStorage.removeItem('mlSkip');document.getElementById('preloader').remove();return}}catch(e){}
+  const pl=document.getElementById('preloader'),h=pl.querySelector('.p-hearts'),msg=document.getElementById('pmsg');
+  for(let i=0;i<14;i++){const e=document.createElement('i');e.textContent='\u2665';e.style.left=(Math.random()*100)+'%';e.style.fontSize=(14+Math.random()*22)+'px';e.style.animationDelay=(Math.random()*6)+'s';e.style.animationDuration=(5+Math.random()*3)+'s';h.appendChild(e)}
+  const lines=["Every child deserves a better life","Together we give hope","Give. Help. Change.","Welcome to ML Donation Community"];
+  let i=0;const iv=setInterval(()=>{i=(i+1)%lines.length;msg.style.opacity=0;setTimeout(()=>{msg.textContent=lines[i];msg.style.opacity=1},400)},1750);
+  document.body.style.overflow='hidden';
+  setTimeout(()=>{clearInterval(iv);pl.classList.add('hide');document.body.style.overflow='';setTimeout(()=>pl.remove(),900)},7000);
+})();
+
+/* ===== Theme (day / night) ===== */
+const themeBtn=document.getElementById('themeBtn');
+function applyTheme(m,save){
+  if(m==='dark')document.documentElement.setAttribute('data-theme','dark');else document.documentElement.removeAttribute('data-theme');
+  if(save){try{localStorage.setItem('mlTheme',m)}catch(e){}}
+  const dark=m==='dark';
+  themeBtn.querySelector('.tl').textContent=dark?'Day mode':'Night mode';
+  themeBtn.setAttribute('aria-label',dark?'Switch to day mode':'Switch to night mode');
+  const mt=document.querySelector('meta[name=theme-color]');if(mt)mt.content=dark?'#10051f':'#25093f';
+}
+applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light',false);
+themeBtn.onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark',true);
+
+/* ===== Translator ===== */
+const LANGS=("en|English|English|us;es|Spanish|Español|es;fr|French|Français|fr;de|German|Deutsch|de;pt|Portuguese|Português|pt;it|Italian|Italiano|it;nl|Dutch|Nederlands|nl;ru|Russian|Русский|ru;zh-CN|Chinese (Simplified)|简体中文|cn;zh-TW|Chinese (Traditional)|繁體中文|tw;ja|Japanese|日本語|jp;ko|Korean|한국어|kr;ar|Arabic|العربية|sa;hi|Hindi|हिन्दी|in;bn|Bengali|বাংলা|bd;ur|Urdu|اردو|pk;tr|Turkish|Türkçe|tr;vi|Vietnamese|Tiếng Việt|vn;th|Thai|ไทย|th;id|Indonesian|Bahasa Indonesia|id;ms|Malay|Bahasa Melayu|my;tl|Filipino|Filipino|ph;sw|Swahili|Kiswahili|ke;yo|Yoruba|Yorùbá|ng;ig|Igbo|Igbo|ng;ha|Hausa|Hausa|ng;zu|Zulu|isiZulu|za;xh|Xhosa|isiXhosa|za;af|Afrikaans|Afrikaans|za;st|Sesotho|Sesotho|ls;sn|Shona|chiShona|zw;ny|Chichewa|Chichewa|mw;rw|Kinyarwanda|Kinyarwanda|rw;mg|Malagasy|Malagasy|mg;am|Amharic|አማርኛ|et;so|Somali|Soomaali|so;iw|Hebrew|עברית|il;fa|Persian|فارسی|ir;ps|Pashto|پښتو|af;ku|Kurdish|Kurdî|iq;sd|Sindhi|سنڌي|pk;ug|Uyghur|ئۇيغۇرچە|cn;yi|Yiddish|ייִדיש|il;pl|Polish|Polski|pl;uk|Ukrainian|Українська|ua;be|Belarusian|Беларуская|by;ro|Romanian|Română|ro;el|Greek|Ελληνικά|gr;cs|Czech|Čeština|cz;sk|Slovak|Slovenčina|sk;hu|Hungarian|Magyar|hu;bg|Bulgarian|Български|bg;sr|Serbian|Српски|rs;hr|Croatian|Hrvatski|hr;bs|Bosnian|Bosanski|ba;sl|Slovenian|Slovenščina|si;mk|Macedonian|Македонски|mk;sq|Albanian|Shqip|al;lt|Lithuanian|Lietuvių|lt;lv|Latvian|Latviešu|lv;et|Estonian|Eesti|ee;fi|Finnish|Suomi|fi;sv|Swedish|Svenska|se;no|Norwegian|Norsk|no;da|Danish|Dansk|dk;is|Icelandic|Íslenska|is;ga|Irish|Gaeilge|ie;cy|Welsh|Cymraeg|gb-wls;gd|Scots Gaelic|Gàidhlig|gb-sct;ca|Catalan|Català|es-ct;eu|Basque|Euskara|es-pv;gl|Galician|Galego|es-ga;mt|Maltese|Malti|mt;lb|Luxembourgish|Lëtzebuergesch|lu;fy|Frisian|Frysk|nl;ka|Georgian|ქართული|ge;hy|Armenian|Հայերեն|am;az|Azerbaijani|Azərbaycan|az;kk|Kazakh|Қазақша|kz;uz|Uzbek|Oʻzbek|uz;ky|Kyrgyz|Кыргызча|kg;tg|Tajik|Тоҷикӣ|tj;mn|Mongolian|Монгол|mn;ne|Nepali|नेपाली|np;si|Sinhala|සිංහල|lk;ta|Tamil|தமிழ்|in;te|Telugu|తెలుగు|in;ml|Malayalam|മലയാളം|in;kn|Kannada|ಕನ್ನಡ|in;mr|Marathi|मराठी|in;gu|Gujarati|ગુજરાતી|in;pa|Punjabi|ਪੰਜਾਬੀ|in;km|Khmer|ខ្មែរ|kh;lo|Lao|ລາວ|la;my|Myanmar (Burmese)|မြန်မာ|mm;jw|Javanese|Basa Jawa|id;su|Sundanese|Basa Sunda|id;ceb|Cebuano|Cebuano|ph;ht|Haitian Creole|Kreyòl ayisyen|ht;mi|Maori|Māori|nz;sm|Samoan|Gagana Samoa|ws;haw|Hawaiian|ʻŌlelo Hawaiʻi|us;la|Latin|Latina|va").split(';').map(s=>{const a=s.split('|');return{c:a[0],e:a[1],n:a[2],f:a[3]}});
+const RTL=['ar','iw','fa','ur','ps','sd','ug','yi','ku'];
+const langBtn=document.getElementById('langBtn'),langPanel=document.getElementById('langPanel'),langList=document.getElementById('langList'),langSearch=document.getElementById('langSearch');
+let curLang='en';
+const emoji=cc=>/^[a-z]{2}$/.test(cc)?String.fromCodePoint(...[...cc.toUpperCase()].map(ch=>127397+ch.charCodeAt())):'\uD83C\uDF10';
+function flagEl(cc,size){
+  const w=document.createElement('span');w.className='lang-flag';
+  const img=new Image();img.alt='';img.loading='lazy';img.src=`https://flagcdn.com/w40/${cc}.png`;img.srcset=`https://flagcdn.com/w80/${cc}.png 2x`;
+  img.onerror=()=>{w.innerHTML='';const s=document.createElement('span');s.textContent=emoji(cc);w.appendChild(s)};
+  w.appendChild(img);return w;
+}
+function renderLangs(){
+  langList.innerHTML='';
+  LANGS.forEach(l=>{
+    const li=document.createElement('li'),b=document.createElement('button');
+    b.type='button';b.setAttribute('role','option');b.dataset.c=l.c;b.dataset.q=(l.e+' '+l.n).toLowerCase();
+    b.setAttribute('aria-selected',l.c===curLang);
+    const nm=document.createElement('span');nm.className='nm';nm.innerHTML=`${l.n}<small>${l.e}</small>`;
+    b.append(flagEl(l.f),nm);b.onclick=()=>chooseLang(l.c);li.appendChild(b);langList.appendChild(li);
+  });
+}
+function updateLangLabel(){
+  const l=LANGS.find(x=>x.c===curLang)||LANGS[0];
+  const f=document.getElementById('langFlag'),nf=flagEl(l.f);nf.id='langFlag';f.replaceWith(nf);
+  document.getElementById('langName').textContent=l.n;
+  langList.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.dataset.c===curLang));
+  document.documentElement.dir=RTL.includes(curLang)?'rtl':'ltr';
+}
+function openLang(o){
+  langPanel.hidden=!o;langBtn.setAttribute('aria-expanded',o);
+  if(o){langSearch.value='';filterLangs();setTimeout(()=>{const s=langList.querySelector('[aria-selected=true]');if(s)s.scrollIntoView({block:'center'})},30)}
+}
+function filterLangs(){const q=langSearch.value.trim().toLowerCase();langList.querySelectorAll('li').forEach(li=>{li.hidden=q&&!li.firstChild.dataset.q.includes(q)})}
+langBtn.onclick=e=>{e.stopPropagation();openLang(langPanel.hidden)};
+langSearch.oninput=filterLangs;
+document.addEventListener('click',e=>{if(!langPanel.hidden&&!e.target.closest('#lang'))openLang(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){openLang(false);document.getElementById('modal').classList.remove('show')}});
+document.getElementById('navLang').onclick=()=>{closeNav();scrollTo({top:0,behavior:'instant'});setTimeout(()=>{openLang(true)},60)};
+
+const toast=m=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),3800)};
+const setCookie=(v)=>{const exp=v?'':';expires=Thu, 01 Jan 1970 00:00:00 UTC';const val=v||'';['',';domain='+location.hostname,';domain=.'+location.hostname].forEach(d=>{document.cookie='googtrans='+val+';path=/'+d+exp})};
+function chooseLang(code){
+  openLang(false);
+  if(code===curLang)return;
+  if(code==='en'){ // restore the original page
+    setCookie('');try{sessionStorage.setItem('mlSkip','1')}catch(e){}
+    curLang='en';updateLangLabel();location.reload();return;
+  }
+  let tries=0;
+  (function go(){
+    const sel=document.querySelector('select.goog-te-combo');
+    if(sel){sel.value=code;sel.dispatchEvent(new Event('change'));curLang=code;updateLangLabel();return}
+    if(!navigator.onLine){toast('Translation needs an internet connection.');return}
+    if(++tries<40)setTimeout(go,150);else toast('The translator could not load. Check your connection and try again.');
+  })();
+}
+renderLangs();
+(function(){ // restore language from Google's cookie
+  const m=document.cookie.match(/googtrans=\/[^/]*\/([A-Za-z-]+)/);
+  if(m&&LANGS.some(l=>l.c===m[1])){curLang=m[1]}
+  updateLangLabel();
+})();
+window.googleTranslateElementInit=function(){
+  new google.translate.TranslateElement({pageLanguage:'en',includedLanguages:LANGS.map(l=>l.c).filter(c=>c!=='en').join(','),autoDisplay:false},'google_translate_element');
+};
+(function(){const s=document.createElement('script');s.async=true;s.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';s.onerror=()=>{};document.head.appendChild(s)})();
+
+route();
+
+/* Header shrink, progress bar, back-to-top */
+const hdr=document.querySelector('header.site'),sp=document.getElementById('sp'),topBtn=document.getElementById('top');
+function onScroll(){
+  const y=window.scrollY,h=document.documentElement.scrollHeight-innerHeight;
+  hdr.classList.toggle('sm',y>60);
+  sp.style.width=(h>0?y/h*100:0)+'%';
+  topBtn.classList.toggle('show',y>700);
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+topBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+/* Gentle reveal on scroll */
+const io='IntersectionObserver' in window?new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){const el=en.target;io.unobserve(el);el.classList.add('in');setTimeout(()=>el.classList.remove('rv','in'),1100)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'}):null;
+function initReveal(){
+  if(!io)return;
+  document.querySelectorAll('.page.active :is(.card,.rung,.tier,.mosaic figure,.split>*,.center>h2,.donate-box,.sidebox,.faq details):not(.rv)').forEach((el,i)=>{
+    if(el.dataset.rv)return;el.dataset.rv=1;el.classList.add('rv');el.style.transitionDelay=((i%4)*90)+'ms';io.observe(el);
+  });
+}
+addEventListener('hashchange',()=>setTimeout(initReveal,60));
+initReveal();
+</script>
+</body>
+</html>
