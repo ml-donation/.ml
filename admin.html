@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#25093f">
+<title>ML Donation Community — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#4a1d8f;--purple-deep:#25093f;--purple-mid:#37146b;
+  --gold:#c9a227;--gold-light:#e8c968;--gold-soft:#f6ecce;
+  --ink:#1f1233;--muted:#6b5f80;--line:#e5dcf2;--paper:#faf7ff;--white:#fff;
+  --ok:#1d7a46;--ok-bg:#e3f4ea;--warn:#8a5a00;--warn-bg:#fdf0cf;--bad:#b3261e;
+  --serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  --gold-grad:linear-gradient(135deg,#a8821a 0%,#e8c968 45%,#c9a227 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+[hidden]{display:none!important}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.7rem 1.3rem;border:2px solid transparent;font-weight:600;font-size:.95rem;border-radius:2px;transition:box-shadow .2s,background .2s,opacity .2s}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn-gold{background:var(--gold-grad);color:var(--purple-deep);box-shadow:0 4px 14px rgba(201,162,39,.35)}
+.btn-gold:not(:disabled):hover{box-shadow:0 8px 22px rgba(201,162,39,.5)}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-purple:not(:disabled):hover{background:var(--purple-deep)}
+.btn-line{border-color:var(--line);background:#fff;color:var(--purple)}
+.btn-line:not(:disabled):hover{border-color:var(--purple)}
+.btn-danger{border-color:#e9c4c1;background:#fff;color:var(--bad)}
+.btn-danger:not(:disabled):hover{background:#fdf0ef}
+.btn-sm{padding:.45rem .9rem;font-size:.85rem}
+
+/* Login */
+#login{min-height:100vh;display:grid;place-items:center;padding:1.5rem;background:
+  radial-gradient(900px 500px at 15% 0%,rgba(201,162,39,.18),transparent 60%),
+  linear-gradient(160deg,var(--purple-deep),var(--purple-mid))}
+.login-box{width:100%;max-width:400px;background:#fff;border-top:5px solid var(--gold);padding:2.4rem 2rem;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+.login-box h1{font-family:var(--serif);font-size:2.1rem;line-height:1.1;color:var(--purple-deep)}
+.login-box p.sub{color:var(--muted);margin:.4rem 0 1.6rem}
+label{display:block;font-weight:500;font-size:.9rem;margin-bottom:.35rem;color:var(--purple-deep)}
+input[type=text],input[type=email],input[type=password],input[type=search],textarea{width:100%;padding:.75rem .9rem;border:1.5px solid var(--line);background:#fff;border-radius:2px;transition:border-color .2s}
+input:focus,textarea:focus{border-color:var(--purple);outline:none;box-shadow:0 0 0 3px rgba(74,29,143,.15)}
+textarea{resize:vertical;min-height:140px;line-height:1.55}
+.field{margin-bottom:1.1rem}
+.err{color:var(--bad);font-size:.9rem;min-height:1.3em;margin-bottom:.6rem}
+
+/* App shell */
+header.bar{background:var(--purple-deep);color:#fff;border-bottom:3px solid var(--gold);position:sticky;top:0;z-index:50}
+.bar-in{max-width:1280px;margin:0 auto;padding:.8rem 1.2rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-size:1.45rem;font-weight:700;color:var(--gold-light);line-height:1.1;margin-right:auto}
+.brand small{display:block;font-family:var(--sans);font-size:.72rem;font-weight:400;color:#cbbbe6;letter-spacing:.04em}
+.tabs{display:flex;gap:.3rem}
+.tab{background:none;border:0;color:#d9ccee;padding:.5rem .9rem;border-bottom:2px solid transparent;font-weight:500}
+.tab[aria-selected=true]{color:#fff;border-bottom-color:var(--gold)}
+.tab .count{display:inline-block;min-width:1.4em;padding:0 .4em;margin-left:.35rem;background:var(--gold);color:var(--purple-deep);border-radius:99px;font-size:.78rem;font-weight:600;text-align:center}
+.bar .btn-line{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.bar .btn-line:not(:disabled):hover{border-color:var(--gold-light)}
+main{max-width:1280px;margin:0 auto;padding:1.4rem 1.2rem 3rem}
+
+.banner{background:var(--warn-bg);color:var(--warn);border-left:4px solid var(--gold);padding:.8rem 1rem;margin-bottom:1.2rem;font-size:.92rem}
+.banner code{background:rgba(0,0,0,.06);padding:.05rem .35rem;border-radius:2px}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border:1px solid var(--line);margin-bottom:1.4rem}
+.stat{padding:1rem 1.2rem;border-right:1px solid var(--line)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:var(--serif);font-size:2.1rem;line-height:1;color:var(--purple-deep)}
+.stat span{font-size:.85rem;color:var(--muted)}
+
+/* Requests layout */
+.split{display:grid;grid-template-columns:minmax(300px,400px) 1fr;gap:1.4rem;align-items:start}
+.panel{background:#fff;border:1px solid var(--line)}
+.tools{display:flex;gap:.6rem;padding:.8rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tools input{flex:1 1 140px;padding:.55rem .8rem}
+.seg{display:flex;border:1.5px solid var(--line)}
+.seg button{background:#fff;border:0;padding:.5rem .8rem;font-size:.85rem;font-weight:500;color:var(--muted)}
+.seg button+button{border-left:1.5px solid var(--line)}
+.seg button[aria-pressed=true]{background:var(--purple);color:#fff}
+.list{max-height:calc(100vh - 330px);min-height:200px;overflow-y:auto}
+.item{display:block;width:100%;text-align:left;background:#fff;border:0;border-bottom:1px solid var(--line);padding:.9rem 1rem .9rem 1.1rem;position:relative}
+.item:hover{background:var(--paper)}
+.item[aria-current=true]{background:var(--gold-soft)}
+.item.new::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
+.item .r1{display:flex;justify-content:space-between;gap:.6rem;align-items:baseline}
+.item .nm{font-weight:600;color:var(--purple-deep);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .amt{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:var(--purple);white-space:nowrap}
+.item .r2{display:flex;justify-content:space-between;gap:.6rem;font-size:.85rem;color:var(--muted);margin-top:.15rem}
+.item .em{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.badge{display:inline-block;padding:.05rem .55rem;border-radius:99px;font-size:.75rem;font-weight:600}
+.badge.new{background:var(--warn-bg);color:var(--warn)}
+.badge.replied{background:var(--ok-bg);color:var(--ok)}
+.empty{padding:2.5rem 1.5rem;text-align:center;color:var(--muted)}
+.empty b{display:block;font-family:var(--serif);font-size:1.5rem;color:var(--purple-deep);margin-bottom:.3rem}
+
+/* Detail */
+.detail{padding:1.6rem}
+.detail h2{font-family:var(--serif);font-size:2rem;line-height:1.1;color:var(--purple-deep)}
+.detail .top{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:1.2rem}
+.back{display:none;margin-bottom:1rem}
+dl.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem 1.5rem;margin-bottom:1.4rem;padding-bottom:1.4rem;border-bottom:1px solid var(--line)}
+dl.facts dt{font-size:.82rem;color:var(--muted)}
+dl.facts dd{font-weight:500;word-break:break-word}
+dl.facts dd.big{font-family:var(--serif);font-size:1.9rem;font-weight:700;color:var(--purple);line-height:1.1}
+.msg{background:var(--paper);border-left:3px solid var(--gold);padding:.9rem 1rem;white-space:pre-wrap;word-break:break-word;margin-bottom:1.4rem}
+h3.sec{font-family:var(--serif);font-size:1.4rem;color:var(--purple-deep);margin:0 0 .6rem}
+.sent{border:1px solid var(--line);border-left:3px solid var(--ok);padding:.8rem 1rem;margin-bottom:.8rem;background:#fff}
+.sent .meta{font-size:.82rem;color:var(--muted);margin-bottom:.3rem}
+.sent .body{white-space:pre-wrap;word-break:break-word}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-top:.4rem}
+.actions .grow{flex:1}
+.placeholder{padding:4rem 1.5rem;text-align:center;color:var(--muted)}
+
+/* Settings */
+.settings{max-width:640px}
+.settings .panel{padding:1.8rem}
+.hint{color:var(--muted);font-size:.9rem;margin:.4rem 0 0}
+
+/* Toast */
+#toast{position:fixed;left:50%;bottom:1.4rem;transform:translate(-50%,30px);background:var(--purple-deep);color:#fff;border:1px solid var(--gold);padding:.8rem 1.3rem;z-index:3000;opacity:0;visibility:hidden;transition:.3s;max-width:92vw;text-align:center;font-size:.95rem}
+#toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+#toast.bad{border-color:#e07a73}
+
+@media(max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .split{grid-template-columns:1fr}
+  .list{max-height:none}
+  .split.open .listpanel{display:none}
+  .split:not(.open) .detailpanel{display:none}
+  .back{display:inline-flex}
+  .detail{padding:1.2rem}
+}
+@media(max-width:520px){dl.facts{grid-template-columns:1fr}.brand{font-size:1.25rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<section id="login">
+  <form class="login-box" id="loginForm" autocomplete="off">
+    <h1>ML Donation Community</h1>
+    <p class="sub">Admin sign in</p>
+    <div class="field">
+      <label for="pw">Password</label>
+      <input id="pw" type="password" autocomplete="current-password" required>
+    </div>
+    <div class="err" id="loginErr" role="alert"></div>
+    <button class="btn btn-gold" style="width:100%" type="submit">Sign in</button>
+  </form>
+</section>
+
+<!-- APP -->
+<div id="app" hidden>
+  <header class="bar">
+    <div class="bar-in">
+      <div class="brand">ML Donation Community<small>Admin dashboard</small></div>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" id="tabReq" aria-selected="true">Donation requests<span class="count" id="newCount" hidden>0</span></button>
+        <button class="tab" role="tab" id="tabSet" aria-selected="false">Settings</button>
+      </div>
+      <button class="btn btn-line btn-sm" id="refreshBtn" type="button">Refresh</button>
+      <button class="btn btn-line btn-sm" id="logoutBtn" type="button">Sign out</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="banner" id="cfgBanner" hidden></div>
+
+    <!-- Requests view -->
+    <div id="viewReq">
+      <div class="stats">
+        <div class="stat"><b id="stTotal">0</b><span>Requests</span></div>
+        <div class="stat"><b id="stNew">0</b><span>Awaiting reply</span></div>
+        <div class="stat"><b id="stReplied">0</b><span>Replied</span></div>
+        <div class="stat"><b id="stSum">$0</b><span>Total pledged</span></div>
+      </div>
+
+      <div class="split" id="split">
+        <section class="panel listpanel" aria-label="Donation requests">
+          <div class="tools">
+            <input id="search" type="search" placeholder="Search name, email or program" aria-label="Search requests">
+            <div class="seg" id="filter" role="group" aria-label="Filter">
+              <button type="button" data-f="all" aria-pressed="true">All</button>
+              <button type="button" data-f="new" aria-pressed="false">New</button>
+              <button type="button" data-f="replied" aria-pressed="false">Replied</button>
+            </div>
+          </div>
+          <div class="list" id="list"></div>
+        </section>
+
+        <section class="panel detailpanel" id="detailPanel" aria-live="polite"></section>
+      </div>
+    </div>
+
+    <!-- Settings view -->
+    <div id="viewSet" class="settings" hidden>
+      <div class="panel">
+        <h3 class="sec">Website email</h3>
+        <p class="hint" style="margin:0 0 1.2rem">This address is shown across the website and receives every new donation request.</p>
+        <div class="field">
+          <label for="siteEmail">Email address</label>
+          <input id="siteEmail" type="email" autocomplete="off">
+        </div>
+        <div class="err" id="setErr" role="alert"></div>
+        <div class="actions">
+          <button class="btn btn-gold" id="saveEmail" type="button">Save email</button>
+          <button class="btn btn-line" id="testEmail" type="button">Send test email</button>
+        </div>
+        <p class="hint" style="margin-top:1.2rem">Changes appear on the website the next time a visitor opens it.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =====================================================================
+   CONFIG — fill these in (see the setup steps), then upload this file.
+   ===================================================================== */
+const CONFIG = {
+  SUPABASE_URL: "https://feahqhpxwtyshqlzgpse.supabase.co",          // e.g. https://abcdxyz.supabase.co
+  SUPABASE_KEY: "sb_publishable_49UqH0nnhO6TqLZhfyejIQ_yETj3Uhv", // publishable / anon key (never the service_role key)
+  ADMIN_EMAIL: "help.mldonation@gmail.com",         // the admin user you create in Supabase > Authentication
+
+  EMAILJS_SERVICE_ID: "service_bfy2pk7",
+  EMAILJS_TEMPLATE_ID: "template_apidsb3",
+  EMAILJS_PUBLIC_KEY: "lz4-2zitxKV7I3iBv",
+
+  DEFAULT_EMAIL: "help.mldonation@gmail.com"
+};
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money = n => '$' + (Number(n) || 0).toLocaleString('en-US');
+const fmtDate = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleString([], {dateStyle:'medium', timeStyle:'short'}); };
+const isPlaceholder = v => !v || /^PASTE_/.test(v);
+const binReady = () => !isPlaceholder(CONFIG.SUPABASE_URL) && !isPlaceholder(CONFIG.SUPABASE_KEY);
+const mailReady = () => !isPlaceholder(CONFIG.EMAILJS_SERVICE_ID) && !isPlaceholder(CONFIG.EMAILJS_TEMPLATE_ID) && !isPlaceholder(CONFIG.EMAILJS_PUBLIC_KEY);
+
+function toast(msg, bad){
+  const t = $('toast'); t.textContent = msg; t.classList.toggle('bad', !!bad); t.classList.add('show');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 4200);
+}
+
+/* ---------- Supabase (REST + Auth) ---------- */
+const SB = () => CONFIG.SUPABASE_URL.replace(/\/$/, '');
+let session = null;
+function setSession(s){
+  session = {access_token: s.access_token, refresh_token: s.refresh_token, expires_at: Date.now() + Math.max(30, (s.expires_in || 3600) - 60) * 1000};
+  sessionStorage.setItem('mlSess', JSON.stringify(session));
+}
+async function authCall(grant, body){
+  const r = await fetch(SB() + '/auth/v1/token?grant_type=' + grant, {method: 'POST', headers: {apikey: CONFIG.SUPABASE_KEY, 'Content-Type': 'application/json'}, body: JSON.stringify(body)});
+  if (!r.ok){ const e = new Error(r.status === 400 ? 'Wrong password.' : 'Sign in failed (' + r.status + ').'); e.status = r.status; throw e; }
+  setSession(await r.json());
+}
+const signIn = pw => authCall('password', {email: CONFIG.ADMIN_EMAIL, password: pw});
+async function token(){
+  if (!session) throw new Error('Signed out');
+  if (Date.now() > session.expires_at){
+    try{ await authCall('refresh_token', {refresh_token: session.refresh_token}); }
+    catch(e){ signOut(); throw new Error('Session expired. Sign in again.'); }
+  }
+  return session.access_token;
+}
+function signOut(){ sessionStorage.removeItem('mlSess'); location.reload(); }
+async function db(path, opts = {}){
+  const t = await token();
+  const r = await fetch(SB() + '/rest/v1/' + path, Object.assign({}, opts, {headers: Object.assign({apikey: CONFIG.SUPABASE_KEY, Authorization: 'Bearer ' + t, 'Content-Type': 'application/json'}, opts.headers || {})}));
+  if (!r.ok) throw new Error('Database error (' + r.status + '). Check the setup SQL was run.');
+  const txt = await r.text(); return txt ? JSON.parse(txt) : null;
+}
+const fromRow = r => ({id: r.id, name: r.name, email: r.email, amount: r.amount, frequency: r.frequency, fund: r.fund, message: r.message, status: r.status, createdAt: r.created_at, replies: Array.isArray(r.replies) ? r.replies : []});
+async function binGet(){
+  const [rows, set] = await Promise.all([
+    db('donation_requests?select=*&order=created_at.desc'),
+    db('site_settings?select=site_email&id=eq.1')
+  ]);
+  return {requests: (rows || []).map(fromRow), siteEmail: (set && set[0] && set[0].site_email) || CONFIG.DEFAULT_EMAIL};
+}
+
+/* ---------- EmailJS ---------- */
+async function sendEmail(params){
+  if (!mailReady()) throw new Error('EmailJS is not set up yet. Add your EmailJS keys at the top of admin.html.');
+  const r = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({service_id: CONFIG.EMAILJS_SERVICE_ID, template_id: CONFIG.EMAILJS_TEMPLATE_ID, user_id: CONFIG.EMAILJS_PUBLIC_KEY, template_params: params})
+  });
+  if (!r.ok) throw new Error('Email not sent: ' + (await r.text()).slice(0, 140));
+}
+
+/* ---------- State ---------- */
+let data = {requests: [], siteEmail: CONFIG.DEFAULT_EMAIL};
+let selectedId = null, filter = 'all', query = '', busy = false;
+
+/* ---------- Login ---------- */
+let fails = 0, lockUntil = 0;
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const err = $('loginErr');
+  if (!binReady()){ err.textContent = 'Supabase is not connected yet. Add your URL and key in the CONFIG block of this file.'; return; }
+  if (Date.now() < lockUntil){ err.textContent = 'Too many attempts. Wait a few seconds and try again.'; return; }
+  const btn = e.submitter || e.target.querySelector('button'); btn.disabled = true;
+  try{
+    await signIn($('pw').value);
+    fails = 0; err.textContent = ''; $('pw').value = ''; start();
+  }catch(ex){
+    if (ex.status === 400){ fails++; if (fails >= 3) lockUntil = Date.now() + Math.min(60000, 5000 * (fails - 2)); }
+    err.textContent = ex.message;
+  }
+  btn.disabled = false;
+});
+$('logoutBtn').onclick = signOut;
+
+/* ---------- Start ---------- */
+function start(){
+  $('login').hidden = true; $('app').hidden = false;
+  if (!binReady()){
+    const b = $('cfgBanner'); b.hidden = false;
+    b.innerHTML = 'Not connected yet. Add your Supabase <code>SUPABASE_URL</code> and key in the <code>CONFIG</code> block at the top of this file.';
+  } else if (!mailReady()){
+    const b = $('cfgBanner'); b.hidden = false;
+    b.innerHTML = 'Replies can\'t be emailed yet. Add your EmailJS keys in the <code>CONFIG</code> block at the top of this file.';
+  }
+  renderAll(); load(true);
+  clearInterval(start.iv); start.iv = setInterval(() => { if (!busy && !document.hidden) load(false); }, 45000);
+}
+async function load(manual){
+  if (!binReady()) return;
+  try{
+    data = await binGet();
+    renderAll();
+    if (manual) toast('Up to date');
+  }catch(ex){ toast(ex.message, true); }
+}
+$('refreshBtn').onclick = () => load(true);
+
+/* ---------- Tabs ---------- */
+function setTab(which){
+  const req = which === 'req';
+  $('viewReq').hidden = !req; $('viewSet').hidden = req;
+  $('tabReq').setAttribute('aria-selected', req); $('tabSet').setAttribute('aria-selected', !req);
+  if (!req) $('siteEmail').value = data.siteEmail;
+}
+$('tabReq').onclick = () => setTab('req');
+$('tabSet').onclick = () => setTab('set');
+
+/* ---------- Render ---------- */
+const sorted = () => [...data.requests].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+function visible(){
+  const q = query.trim().toLowerCase();
+  return sorted().filter(r =>
+    (filter === 'all' || (filter === 'new' ? r.status !== 'replied' : r.status === 'replied')) &&
+    (!q || [r.name, r.email, r.fund].join(' ').toLowerCase().includes(q)));
+}
+function renderStats(){
+  const rs = data.requests, nw = rs.filter(r => r.status !== 'replied').length;
+  $('stTotal').textContent = rs.length;
+  $('stNew').textContent = nw;
+  $('stReplied').textContent = rs.length - nw;
+  $('stSum').textContent = money(rs.reduce((s, r) => s + (Number(r.amount) || 0), 0));
+  const c = $('newCount'); c.textContent = nw; c.hidden = nw === 0;
+  document.title = (nw ? '(' + nw + ') ' : '') + 'ML Donation Community — Admin';
+}
+function renderList(){
+  const rows = visible(), el = $('list');
+  if (!rows.length){
+    el.innerHTML = data.requests.length
+      ? '<div class="empty"><b>No matches</b>Try a different search or filter.</div>'
+      : '<div class="empty"><b>No donation requests yet</b>New requests from the website will appear here.</div>';
+    return;
+  }
+  el.innerHTML = rows.map(r => `
+    <button class="item ${r.status !== 'replied' ? 'new' : ''}" data-id="${esc(r.id)}" ${r.id === selectedId ? 'aria-current="true"' : ''}>
+      <div class="r1"><span class="nm">${esc(r.name)}</span><span class="amt">${money(r.amount)}${r.frequency === 'Monthly' ? '<small style="font-size:.7rem;font-weight:500;color:var(--muted)">/mo</small>' : ''}</span></div>
+      <div class="r2"><span class="em">${esc(r.email)}</span><span class="badge ${r.status === 'replied' ? 'replied' : 'new'}">${r.status === 'replied' ? 'Replied' : 'New'}</span></div>
+      <div class="r2"><span>${esc(fmtDate(r.createdAt))}</span></div>
+    </button>`).join('');
+}
+$('list').addEventListener('click', e => {
+  const b = e.target.closest('.item'); if (!b) return;
+  selectedId = b.dataset.id; renderList(); renderDetail();
+  $('split').classList.add('open'); window.scrollTo({top: 0});
+});
+
+function defaultReply(r){
+  const first = (r.name || '').trim().split(/\s+/)[0] || 'friend';
+  return `Dear ${first},\n\nThank you for your kind intention to give ${money(r.amount)}${r.frequency === 'Monthly' ? ' every month' : ''} to ${r.fund || 'ML Donation Community'}. We are grateful for your generosity toward children in need.\n\n\n\nWith gratitude,\nML Donation Community\n${data.siteEmail}`;
+}
+function renderDetail(){
+  const p = $('detailPanel'), r = data.requests.find(x => x.id === selectedId);
+  if (!r){
+    p.innerHTML = '<div class="placeholder"><h3 class="sec">Select a request</h3>Choose a donation request on the left to read it and send a reply.</div>';
+    return;
+  }
+  const replies = (r.replies || []).map(x => `
+    <div class="sent"><div class="meta">Sent ${esc(fmtDate(x.sentAt))} · ${esc(x.subject)}</div><div class="body">${esc(x.message)}</div></div>`).join('');
+  p.innerHTML = `
+    <div class="detail">
+      <button class="btn btn-line btn-sm back" id="backBtn" type="button">Back to list</button>
+      <div class="top">
+        <div><h2>${esc(r.name)}</h2><span class="badge ${r.status === 'replied' ? 'replied' : 'new'}">${r.status === 'replied' ? 'Replied' : 'New'}</span></div>
+        <button class="btn btn-danger btn-sm" id="delBtn" type="button">Delete</button>
+      </div>
+      <dl class="facts">
+        <div><dt>Amount</dt><dd class="big">${money(r.amount)}</dd></div>
+        <div><dt>Frequency</dt><dd>${esc(r.frequency || 'One-time')}</dd></div>
+        <div><dt>Email</dt><dd><a href="mailto:${esc(r.email)}" style="color:var(--purple)">${esc(r.email)}</a></dd></div>
+        <div><dt>Received</dt><dd>${esc(fmtDate(r.createdAt))}</dd></div>
+        <div style="grid-column:1/-1"><dt>Directed to</dt><dd>${esc(r.fund || 'General')}</dd></div>
+      </dl>
+      <h3 class="sec">Their message</h3>
+      <div class="msg">${r.message ? esc(r.message) : '<span style="color:var(--muted)">No message left.</span>'}</div>
+      ${replies ? '<h3 class="sec">Your replies</h3>' + replies : ''}
+      <h3 class="sec" style="margin-top:1.4rem">${replies ? 'Send another reply' : 'Reply'}</h3>
+      <div class="field"><label for="rTo">To</label><input id="rTo" type="text" value="${esc(r.email)}" readonly></div>
+      <div class="field"><label for="rSub">Subject</label><input id="rSub" type="text" value="Your donation request — ML Donation Community"></div>
+      <div class="field"><label for="rMsg">Message</label><textarea id="rMsg" rows="9">${esc(defaultReply(r))}</textarea></div>
+      <div class="err" id="rErr" role="alert"></div>
+      <div class="actions"><button class="btn btn-gold" id="sendBtn" type="button">Send reply</button></div>
+    </div>`;
+  $('backBtn').onclick = () => { $('split').classList.remove('open'); };
+  $('delBtn').onclick = () => deleteRequest(r.id);
+  $('sendBtn').onclick = () => sendReply(r.id);
+}
+function renderAll(){ renderStats(); renderList(); renderDetail(); }
+
+/* ---------- Filters ---------- */
+$('search').addEventListener('input', e => { query = e.target.value; renderList(); });
+$('filter').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  filter = b.dataset.f;
+  $('filter').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  renderList();
+});
+
+/* ---------- Actions ---------- */
+async function sendReply(id){
+  const r = data.requests.find(x => x.id === id); if (!r || busy) return;
+  const subject = $('rSub').value.trim(), message = $('rMsg').value.trim(), err = $('rErr');
+  if (!subject){ err.textContent = 'Add a subject.'; return; }
+  if (!message){ err.textContent = 'Write a message before sending.'; return; }
+  err.textContent = '';
+  const btn = $('sendBtn'); busy = true; btn.disabled = true; btn.textContent = 'Sending…';
+  try{
+    await sendEmail({to_email: r.email, to_name: r.name, subject, message, reply_to: data.siteEmail, from_name: 'ML Donation Community'});
+  }catch(ex){
+    busy = false; btn.disabled = false; btn.textContent = 'Send reply'; err.textContent = ex.message; return;
+  }
+  const entry = {subject, message, sentAt: new Date().toISOString()};
+  try{
+    const res = await db('donation_requests?id=eq.' + encodeURIComponent(id), {method: 'PATCH', headers: {Prefer: 'return=representation'}, body: JSON.stringify({status: 'replied', replies: (r.replies || []).concat(entry)})});
+    if (!res || !res.length) throw new Error('Not saved (permission denied).');
+    r.replies = (r.replies || []).concat(entry); r.status = 'replied';
+    toast('Reply sent to ' + r.email);
+  }catch(ex){
+    toast('Email sent, but saving it to the dashboard failed. ' + ex.message, true);
+  }
+  busy = false; renderAll();
+}
+async function deleteRequest(id){
+  if (busy || !confirm('Delete this donation request? This cannot be undone.')) return;
+  busy = true;
+  try{
+    const res = await db('donation_requests?id=eq.' + encodeURIComponent(id), {method: 'DELETE', headers: {Prefer: 'return=representation'}});
+    if (!res || !res.length) throw new Error('Not deleted (permission denied).');
+    data.requests = data.requests.filter(x => x.id !== id);
+    selectedId = null; $('split').classList.remove('open'); toast('Request deleted');
+  }catch(ex){ toast(ex.message, true); }
+  busy = false; renderAll();
+}
+
+/* ---------- Settings ---------- */
+const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+$('saveEmail').onclick = async () => {
+  const v = $('siteEmail').value.trim(), err = $('setErr');
+  if (!emailOk(v)){ err.textContent = 'Enter a valid email address.'; return; }
+  if (!binReady()){ err.textContent = 'Connect Supabase first (see the banner above).'; return; }
+  err.textContent = ''; const b = $('saveEmail'); b.disabled = true; b.textContent = 'Saving…'; busy = true;
+  try{
+    const res = await db('site_settings?id=eq.1', {method: 'PATCH', headers: {Prefer: 'return=representation'}, body: JSON.stringify({site_email: v})});
+    if (!res || !res.length) throw new Error('Not saved. Run the setup SQL first.');
+    data.siteEmail = v;
+    toast('Website email changed to ' + v);
+  }catch(ex){ err.textContent = ex.message; }
+  busy = false; b.disabled = false; b.textContent = 'Save email';
+};
+$('testEmail').onclick = async () => {
+  const v = $('siteEmail').value.trim(), err = $('setErr');
+  if (!emailOk(v)){ err.textContent = 'Enter a valid email address.'; return; }
+  err.textContent = ''; const b = $('testEmail'); b.disabled = true; b.textContent = 'Sending…';
+  try{
+    await sendEmail({to_email: v, to_name: 'Admin', subject: 'Test email — ML Donation Community', message: 'This is a test. Donation requests and replies will be sent through this connection.', reply_to: v, from_name: 'ML Donation Community'});
+    toast('Test email sent to ' + v);
+  }catch(ex){ err.textContent = ex.message; }
+  b.disabled = false; b.textContent = 'Send test email';
+};
+
+/* ---------- Boot ---------- */
+try{ session = JSON.parse(sessionStorage.getItem('mlSess') || 'null'); }catch(e){ session = null; }
+if (session && binReady()) start();
+</script>
+</body>
+</html>
